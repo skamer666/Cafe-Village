@@ -1,0 +1,1101 @@
+<!doctype html><html lang="fr"><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style><title>Café Village</title></head><body>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Prata&family=Karla:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap');
+
+  :root{
+    --cream:#fdfbf2;
+    --cream-dim: color-mix(in oklch, #fdfbf2 92%, #173d30 8%);
+    --forest:#173d30;
+    --forest-deep: color-mix(in oklch, #173d30 82%, black 18%);
+    --forest-soft: color-mix(in oklch, #173d30 46%, #fdfbf2 54%);
+    --forest-line: color-mix(in oklch, #173d30 22%, transparent);
+    --terracotta:#b3502e;
+    --terracotta-deep: color-mix(in oklch, #b3502e 80%, black 20%);
+    --gold:#ab8a4e;
+
+    --ink: var(--forest);
+    --paper: var(--cream);
+
+    --space-3xs: 4px;
+    --space-2xs: 8px;
+    --space-xs: 12px;
+    --space-sm: 16px;
+    --space-md: 24px;
+    --space-lg: 32px;
+    --space-xl: 48px;
+    --space-2xl: 64px;
+    --space-3xl: 96px;
+    --section-pad: var(--space-3xl);
+
+    --fs-xs: 0.78rem;
+    --fs-sm: 0.95rem;
+    --fs-base: 1.08rem;
+    --fs-md: clamp(1.3rem, 1.05rem + 0.9vw, 1.7rem);
+    --fs-lg: clamp(1.9rem, 1.3rem + 2.2vw, 3.1rem);
+    --fs-xl: clamp(2.6rem, 1.7rem + 3.4vw, 4.6rem);
+    --fs-hero: clamp(3.2rem, 1.6rem + 7vw, 7.4rem);
+
+    --ease-out: cubic-bezier(.16,1,.3,1);
+    color-scheme: light;
+  }
+
+  *,*::before,*::after{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Karla',sans-serif;
+    font-size:var(--fs-base);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; scroll-behavior:auto !important;}
+  }
+
+  img{max-width:100%; display:block;}
+  a{color:inherit;}
+  h1,h2,h3{font-family:'Prata',serif; font-weight:400; margin:0; letter-spacing:0.01em;}
+  p{margin:0;}
+  .eyebrow{
+    font-size:var(--fs-xs);
+    letter-spacing:0.22em;
+    text-transform:uppercase;
+    color:var(--terracotta);
+    font-weight:600;
+  }
+  .container{max-width:1240px; margin-inline:auto; padding-inline:clamp(20px,5vw,64px);}
+  section{position:relative;}
+
+  ::selection{background:var(--forest); color:var(--cream);}
+
+  /* ---------- reveal on scroll ---------- */
+  .reveal{opacity:0; transform:translateY(28px); transition:opacity .9s var(--ease-out), transform .9s var(--ease-out);}
+  .reveal.in-view{opacity:1; transform:translateY(0);}
+  .reveal-delay-1.in-view{transition-delay:.12s;}
+  .reveal-delay-2.in-view{transition-delay:.24s;}
+  .reveal-delay-3.in-view{transition-delay:.36s;}
+
+  /* ---------- badge logo ---------- */
+  .badge{display:block; width:auto;}
+
+  /* ---------- nav ---------- */
+  header{
+    position:fixed; inset:0 0 auto 0; z-index:100;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:20px clamp(20px,5vw,56px);
+    transition:padding .4s var(--ease-out), background-color .4s var(--ease-out), box-shadow .4s var(--ease-out);
+  }
+  header.scrolled{
+    padding-block:10px;
+    background:var(--cream);
+    box-shadow:0 1px 0 var(--forest-line);
+  }
+  header .brand{display:flex; align-items:center; gap:10px; text-decoration:none;}
+  header .brand img{height:44px; width:auto; transition:height .4s var(--ease-out);}
+  header.scrolled .brand img{height:36px;}
+  header .brand span{font-family:'Prata',serif; font-size:1.15rem; color:var(--forest);}
+
+  nav.links{display:flex; align-items:center; gap:clamp(16px,2.4vw,34px);}
+  nav.links a{
+    text-decoration:none; color:var(--forest); font-size:0.92rem;
+    letter-spacing:0.03em; position:relative; padding-bottom:4px;
+  }
+  nav.links a::after{
+    content:""; position:absolute; left:0; right:100%; bottom:0; height:1px; background:var(--terracotta);
+    transition:right .35s var(--ease-out);
+  }
+  nav.links a:hover::after{right:0;}
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:'Karla',sans-serif; font-weight:700; font-size:0.86rem;
+    letter-spacing:0.06em; text-transform:uppercase;
+    padding:13px 26px; border-radius:2px; text-decoration:none;
+    border:1px solid var(--forest); cursor:pointer;
+    transition:transform .35s var(--ease-out), background-color .35s var(--ease-out), color .35s var(--ease-out), box-shadow .35s var(--ease-out);
+  }
+  .btn-solid{background:var(--terracotta); color:var(--cream); border-color:var(--terracotta);}
+  .btn-solid:hover{background:var(--terracotta-deep); border-color:var(--terracotta-deep); transform:translateY(-2px);}
+  .btn-line{background:transparent; color:var(--forest); border-color:var(--forest);}
+  .btn-line:hover{background:var(--forest); color:var(--cream); transform:translateY(-2px);}
+  .btn-line.on-dark{color:var(--cream); border-color:var(--cream);}
+  .btn-line.on-dark:hover{background:var(--cream); color:var(--forest);}
+
+  #nav-toggle{display:none;}
+  .burger{display:none; flex-direction:column; gap:5px; cursor:pointer; z-index:120;}
+  .burger span{width:26px; height:2px; background:var(--forest); transition:transform .3s, opacity .3s;}
+
+  /* ---------- hero ---------- */
+  .hero{
+    height:100svh; min-height:560px; position:relative;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center; color:var(--cream); overflow:hidden;
+  }
+  .hero .bg{
+    position:absolute; inset:0; z-index:0;
+    background:linear-gradient(180deg, rgba(15,30,24,.35), rgba(10,20,16,.72)), url('hero-evening.jpg') center 30%/cover no-repeat;
+    animation:kenburns 26s ease-in-out infinite alternate;
+  }
+  @keyframes kenburns{ from{transform:scale(1);} to{transform:scale(1.12);} }
+  .hero .content{position:relative; z-index:1; padding-inline:20px; max-width:900px;}
+  .hero .badge-mark{width:clamp(76px,10vw,108px); height:auto; margin-inline:auto; margin-bottom:var(--space-md);}
+  .hero h1{font-size:var(--fs-hero); line-height:0.98; color:var(--cream);}
+  .hero .sub{
+    margin-top:var(--space-md); font-size:clamp(1rem,0.9rem + 0.4vw,1.2rem);
+    max-width:52ch; margin-inline:auto; color:color-mix(in oklch, var(--cream) 88%, transparent);
+  }
+  .hero .cta-row{display:flex; gap:16px; justify-content:center; flex-wrap:wrap; margin-top:var(--space-xl);}
+  .hero .scroll-cue{
+    position:absolute; bottom:28px; left:50%; transform:translateX(-50%); z-index:1;
+    display:flex; flex-direction:column; align-items:center; gap:8px;
+    font-size:var(--fs-xs); letter-spacing:0.2em; text-transform:uppercase; color:var(--cream);
+    opacity:.85;
+  }
+  .scroll-cue .line{width:1px; height:34px; background:currentColor; overflow:hidden; position:relative;}
+  .scroll-cue .line::after{content:""; position:absolute; top:-100%; left:0; width:100%; height:100%; background:var(--terracotta); animation:cueflow 1.8s ease-in-out infinite;}
+  @keyframes cueflow{ to{top:100%;} }
+
+  /* ---------- marquee ---------- */
+  .marquee{
+    background:var(--forest); color:var(--cream); overflow:hidden;
+    padding:16px 0; white-space:nowrap; border-top:1px solid var(--forest-deep); border-bottom:1px solid var(--forest-deep);
+  }
+  .marquee .track{display:inline-flex; animation:scroll-left 32s linear infinite;}
+  .marquee span{
+    display:inline-flex; align-items:center; font-size:0.92rem; letter-spacing:0.08em; text-transform:uppercase;
+    padding-inline:28px;
+  }
+  .marquee span::after{content:"•"; margin-left:28px; color:var(--terracotta);}
+  @keyframes scroll-left{ from{transform:translateX(0);} to{transform:translateX(-50%);} }
+
+  /* ---------- manifesto ---------- */
+  .manifesto{padding-block:var(--section-pad) var(--space-2xl); background:var(--cream);}
+  .manifesto .grid{display:grid; grid-template-columns: 1.15fr 0.85fr; gap:clamp(32px,5vw,80px); align-items:center;}
+  .manifesto blockquote{
+    margin:var(--space-md) 0 0; font-family:'Prata',serif; font-size:var(--fs-lg); line-height:1.28;
+    max-width:20ch;
+  }
+  .manifesto blockquote em{color:var(--terracotta); font-style:normal;}
+  .manifesto .desc{margin-top:var(--space-lg); max-width:52ch; color:var(--forest-soft); font-size:1.02rem;}
+  .manifesto .photo-wrap{position:relative; justify-self:center;}
+  .manifesto .photo-wrap img{
+    width:min(380px,80vw); aspect-ratio:1; object-fit:cover; border-radius:50%;
+    border:1px solid var(--forest-line); padding:14px;
+  }
+  .manifesto .ring{
+    position:absolute; inset:-14px; border:1px dashed var(--forest-line); border-radius:50%;
+    animation:spin 40s linear infinite;
+  }
+  @keyframes spin{ to{transform:rotate(360deg);} }
+
+  /* ---------- section heads ---------- */
+  .section-head{max-width:640px; margin-bottom:var(--space-2xl);}
+  .section-head h2{font-size:var(--fs-xl); margin-top:var(--space-2xs);}
+  .section-head p{margin-top:var(--space-sm); color:var(--forest-soft); font-size:1.05rem; max-width:56ch;}
+  .section-head.center{margin-inline:auto; text-align:center;}
+
+  /* ---------- village map (9 univers) ---------- */
+  .univers{padding-block:var(--section-pad); background:var(--cream-dim);}
+  .village-roofline{display:block; width:100%; height:16px; margin-bottom:-1px;}
+  .village-roofline polyline{fill:none; stroke:var(--forest); stroke-width:1.5;}
+  .village-layout{display:grid; grid-template-columns:1.35fr 1fr; gap:clamp(20px,3.5vw,44px); align-items:start;}
+
+  .village-grid{
+    position:relative; display:grid;
+    grid-template-columns:repeat(3,1fr); grid-template-rows:repeat(3,1fr);
+    gap:3px; aspect-ratio:1.15/1; background:var(--forest);
+  }
+  .plot{
+    position:relative; overflow:hidden; border:none; padding:0; margin:0; cursor:pointer;
+    text-align:left; font-family:inherit; color:var(--cream);
+    transition:box-shadow .35s var(--ease-out);
+  }
+  .plot img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transition:transform 1.1s var(--ease-out), filter .4s;}
+  .plot::before{
+    content:""; position:absolute; inset:0; z-index:1;
+    background:linear-gradient(200deg, rgba(15,30,24,0) 42%, rgba(9,18,14,.86) 100%);
+    transition:background .4s var(--ease-out);
+  }
+  .plot-face{
+    position:relative; z-index:2; height:100%; display:flex; flex-direction:column; justify-content:space-between;
+    padding:clamp(10px,1.5vw,18px);
+  }
+  .plot-top{display:flex; align-items:center; justify-content:space-between; gap:8px;}
+  .plot-num{font-size:0.68rem; letter-spacing:0.16em; color:var(--gold); font-weight:700;}
+  .plot-icon{display:inline-flex; width:17px; height:17px; opacity:0; transform:translateY(-3px); transition:opacity .35s var(--ease-out), transform .35s var(--ease-out);}
+  .plot-icon svg{width:100%; height:100%; stroke:var(--cream);}
+  .plot-name{font-family:'Prata',serif; font-size:clamp(0.82rem,0.66rem + 0.6vw,1.15rem); line-height:1.15;}
+
+  .plot:hover img,.plot:focus-visible img,.plot.active img{transform:scale(1.06);}
+  .plot:hover::before,.plot:focus-visible::before,.plot.active::before{background:linear-gradient(200deg, rgba(179,80,46,.12) 30%, rgba(9,18,14,.78) 100%);}
+  .plot:hover .plot-icon,.plot:focus-visible .plot-icon,.plot.active .plot-icon{opacity:.95; transform:translateY(0);}
+  .plot.active{box-shadow:0 0 0 2px var(--terracotta) inset;}
+  .plot:focus-visible{outline:2px solid var(--terracotta); outline-offset:-2px;}
+
+  .plot-garden{background:color-mix(in oklch, var(--forest) 78%, #17301f 22%);}
+  .plot-garden::before{background:linear-gradient(200deg, rgba(15,30,24,.05) 30%, rgba(9,18,14,.72) 100%);}
+  .plot-garden .plot-num{color:var(--cream);}
+
+  .village-detail{
+    position:sticky; top:104px; background:var(--cream); border:1px solid var(--forest-line);
+    padding:var(--space-lg); display:flex; flex-direction:column; min-height:420px;
+  }
+  .village-detail img{width:100%; aspect-ratio:16/10; object-fit:cover; border-radius:2px;}
+  .village-detail .vd-num{font-size:var(--fs-xs); letter-spacing:0.2em; color:var(--terracotta); font-weight:700; text-transform:uppercase;}
+  .village-detail h3{font-size:var(--fs-lg); margin-top:8px;}
+  .village-detail p{margin-top:12px; color:var(--forest-soft); max-width:44ch;}
+  .village-detail .vd-cta{margin-top:auto; padding-top:var(--space-lg);}
+
+  @media (max-width:920px){
+    .village-layout{grid-template-columns:1fr;}
+    .village-detail{position:static;}
+    .village-grid{aspect-ratio:1/1.05;}
+  }
+
+  /* ---------- version switch ---------- */
+  .view-switch{display:inline-flex; gap:4px; background:var(--cream); border:1px solid var(--forest-line); border-radius:999px; padding:4px; margin-bottom:var(--space-xl);}
+  .view-btn{
+    border:none; background:none; padding:9px 22px; border-radius:999px; cursor:pointer;
+    font-family:'Karla',sans-serif; font-size:0.82rem; font-weight:700; letter-spacing:0.04em;
+    color:var(--forest-soft); transition:background .3s var(--ease-out), color .3s var(--ease-out);
+  }
+  .view-btn.active{background:var(--forest); color:var(--cream);}
+  .view-panel{display:none;}
+  .view-panel.active{display:block;}
+
+  /* ---------- paravent (version 2) ---------- */
+  .paravent{
+    display:flex; gap:3px; height:clamp(440px,50vw,620px); background:var(--forest); overflow:hidden;
+  }
+  .slat{
+    position:relative; flex:1 1 0%; min-width:0; overflow:hidden; cursor:pointer;
+    border:none; padding:0; margin:0; color:var(--cream);
+    transition:flex 0.7s var(--ease-out);
+  }
+  .slat img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transform:scale(1.03); transition:transform 1.2s var(--ease-out);}
+  .slat-scrim{
+    position:absolute; inset:0; z-index:1;
+    background:linear-gradient(0deg, rgba(9,18,14,.88) 0%, rgba(9,18,14,.15) 60%);
+    transition:background .5s var(--ease-out);
+  }
+  .slat.active{flex:11 1 0%;}
+  .slat.active img{transform:scale(1);}
+  .slat.active .slat-scrim{background:linear-gradient(0deg, rgba(9,18,14,.82) 0%, rgba(9,18,14,.05) 65%);}
+
+  .slat-closed{
+    position:absolute; inset:0; z-index:2; display:flex; flex-direction:column; align-items:center; justify-content:space-between;
+    padding:22px 0; opacity:1; transition:opacity .3s var(--ease-out);
+  }
+  .slat-num{font-size:0.68rem; letter-spacing:0.16em; color:var(--gold); font-weight:700;}
+  .slat-label{
+    writing-mode:vertical-rl; transform:rotate(180deg);
+    font-family:'Prata',serif; font-size:clamp(0.85rem,0.7rem + 0.4vw,1.05rem); white-space:nowrap;
+    transition:color .3s var(--ease-out);
+  }
+  .slat:hover .slat-label{color:var(--terracotta);}
+  .slat.active .slat-closed{opacity:0; pointer-events:none;}
+
+  .slat-open{
+    position:absolute; inset:0; z-index:2; display:flex; flex-direction:column; justify-content:flex-end;
+    padding:clamp(20px,3vw,40px); opacity:0; pointer-events:none;
+    transition:opacity .35s var(--ease-out) .1s;
+  }
+  .slat.active .slat-open{opacity:1; pointer-events:auto;}
+  .slat-open .n{font-size:var(--fs-xs); letter-spacing:0.2em; color:var(--gold); font-weight:700; text-transform:uppercase; white-space:nowrap;}
+  .slat-open h3{font-size:clamp(1.3rem,0.9rem + 1.8vw,2.2rem); margin-top:8px; color:var(--cream); white-space:nowrap;}
+  .slat-open p{margin-top:10px; max-width:38ch; color:color-mix(in oklch, var(--cream) 85%, transparent); white-space:normal;}
+  .slat-open .btn{margin-top:16px; align-self:flex-start; white-space:nowrap;}
+  .slat:not(.active) .slat-open{display:none;}
+
+  .slat:focus-visible{outline:2px solid var(--terracotta); outline-offset:-2px;}
+
+  @media (max-width:900px){
+    .paravent{flex-direction:column; height:74vh; min-height:540px;}
+    .slat.active{flex:9 1 0%;}
+    .slat-closed{flex-direction:row; justify-content:flex-start; gap:14px; padding:0 18px;}
+    .slat-label{writing-mode:horizontal-tb; transform:none;}
+  }
+
+  /* ---------- cartes postales (version 3) ---------- */
+  .postcards{
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
+    gap:clamp(28px,3.5vw,48px); padding-block:12px clamp(20px,3vw,36px);
+  }
+  .postcard{
+    position:relative; aspect-ratio:3/4; background:none; border:none; padding:0; cursor:pointer;
+    perspective:1600px; transform:rotate(var(--tilt,0deg)); transition:transform .4s var(--ease-out);
+  }
+  .postcard:nth-child(2n){margin-top:16px;}
+  .postcard:nth-child(3n){margin-top:-10px;}
+  .postcard:hover{transform:rotate(0deg) translateY(-4px);}
+  .postcard.flipped{transform:rotate(var(--tilt,0deg)) scale(1.06); z-index:5;}
+  .pc-inner{
+    display:block; position:relative; width:100%; height:100%; transform-style:preserve-3d;
+    transition:transform .7s cubic-bezier(.2,.8,.2,1);
+  }
+  .postcard.flipped .pc-inner{transform:rotateY(180deg);}
+  .pc-front,.pc-back{
+    position:absolute; inset:0; backface-visibility:hidden; border-radius:2px;
+    box-shadow:0 14px 30px rgba(15,30,24,.22);
+  }
+  .pc-front{background:var(--cream); padding:9px 9px 0; display:flex; flex-direction:column;}
+  .pc-front img{flex:1; width:100%; min-height:0; object-fit:cover;}
+  .pc-caption{
+    padding:9px 2px 11px; display:flex; justify-content:space-between; align-items:baseline; gap:8px;
+  }
+  .pc-caption .name{font-family:'Prata',serif; font-size:0.92rem; color:var(--forest); line-height:1.15;}
+  .pc-caption .n{font-size:0.62rem; letter-spacing:0.14em; color:var(--terracotta); font-weight:700; white-space:nowrap;}
+  .pc-back{
+    background:var(--cream); border:1px solid var(--forest-line); transform:rotateY(180deg);
+    padding:clamp(14px,2vw,22px); display:flex; flex-direction:column; text-align:left; overflow:hidden;
+  }
+  .pc-stamp{position:absolute; top:12px; right:12px; width:38px; height:38px; color:var(--terracotta); opacity:0.8; transform:rotate(-9deg);}
+  .pc-stamp svg{width:100%; height:100%;}
+  .pc-back .n{font-size:0.64rem; letter-spacing:0.18em; color:var(--gold); font-weight:700; text-transform:uppercase;}
+  .pc-back h3{font-family:'Prata',serif; font-size:clamp(1.05rem,0.9rem + 0.5vw,1.35rem); margin-top:6px; padding-right:34px;}
+  .pc-back p{margin-top:8px; font-size:0.85rem; line-height:1.5; color:var(--forest-soft);}
+  .pc-back .btn{margin-top:auto; align-self:flex-start; padding:9px 18px; font-size:0.72rem;}
+
+  /* ---------- deux ambiances / menu ---------- */
+  .ambiances{padding-block:var(--section-pad); background:var(--cream);}
+  .amb-tabs{display:flex; gap:var(--space-md); margin-bottom:var(--space-xl); border-bottom:1px solid var(--forest-line);}
+  .amb-tab{
+    background:none; border:none; font-family:'Prata',serif; font-size:var(--fs-md); color:var(--forest-soft);
+    padding-bottom:14px; cursor:pointer; position:relative; opacity:.55; transition:opacity .3s;
+  }
+  .amb-tab.active{opacity:1; color:var(--forest);}
+  .amb-tab::after{content:""; position:absolute; left:0; right:0; bottom:-1px; height:2px; background:var(--terracotta); transform:scaleX(0); transition:transform .35s var(--ease-out);}
+  .amb-tab.active::after{transform:scaleX(1);}
+  .amb-panel{display:none; grid-template-columns:0.9fr 1.1fr; gap:clamp(28px,5vw,64px); align-items:center;}
+  .amb-panel.active{display:grid;}
+  .amb-panel img{width:100%; aspect-ratio:4/5; object-fit:cover; border-radius:4px;}
+  .amb-panel .tag{font-size:var(--fs-xs); letter-spacing:0.2em; text-transform:uppercase; color:var(--terracotta); font-weight:700;}
+  .amb-panel h3{font-size:var(--fs-lg); margin-top:10px;}
+  .amb-panel .lead{margin-top:14px; color:var(--forest-soft); max-width:48ch;}
+  .menu-list{margin-top:var(--space-lg); display:flex; flex-direction:column;}
+  .menu-list li{
+    list-style:none; display:flex; justify-content:space-between; gap:16px;
+    padding-block:16px; border-bottom:1px solid var(--forest-line);
+  }
+  .menu-list li .name{font-weight:600;}
+  .menu-list li .note{display:block; font-size:0.88rem; color:var(--forest-soft); font-weight:400; margin-top:3px;}
+  .menu-list li .price{font-family:'Prata',serif; color:var(--terracotta); white-space:nowrap;}
+  .menu-note{margin-top:var(--space-lg); font-size:0.92rem; color:var(--forest-soft); font-style:italic;}
+
+  /* ---------- terrasse ---------- */
+  .terrasse{padding-block:var(--section-pad); background:var(--forest); color:var(--cream); overflow:hidden;}
+  .terrasse .grid{display:grid; grid-template-columns:1fr 1fr; gap:clamp(24px,4vw,56px); align-items:center;}
+  .terrasse .section-head p{color:color-mix(in oklch, var(--cream) 78%, transparent);}
+  .terrasse .section-head .eyebrow{color:var(--gold);}
+  .terrasse .imgs{position:relative; height:clamp(320px,42vw,460px);}
+  .terrasse .imgs img{
+    position:absolute; width:62%; object-fit:cover; border:6px solid var(--cream); box-shadow:0 20px 50px rgba(0,0,0,.35);
+  }
+  .terrasse .imgs img.i1{top:0; left:0; height:72%; transform:rotate(-4deg); z-index:2;}
+  .terrasse .imgs img.i2{bottom:0; right:0; height:60%; transform:rotate(3deg); z-index:1;}
+  .terrasse p.body{margin-top:var(--space-lg); color:color-mix(in oklch, var(--cream) 82%, transparent); max-width:48ch;}
+
+  /* ---------- boutique / galerie ---------- */
+  .shoppe{padding-block:var(--section-pad); background:var(--cream-dim);}
+  .shoppe-grid{display:grid; grid-template-columns:1fr 1fr; gap:clamp(24px,4vw,48px);}
+  .shoppe-card{background:var(--cream); border:1px solid var(--forest-line);}
+  .shoppe-card img{width:100%; height:320px; object-fit:cover;}
+  .shoppe-card .body{padding:var(--space-lg);}
+  .shoppe-card h3{font-size:var(--fs-md);}
+  .shoppe-card p{margin-top:10px; color:var(--forest-soft);}
+  .shoppe-card .btn{margin-top:var(--space-md);}
+
+  /* ---------- events band ---------- */
+  .events{
+    position:relative; padding-block:var(--section-pad); color:var(--cream); text-align:center;
+    background:linear-gradient(180deg, rgba(15,30,24,.78), rgba(10,20,16,.9)), url('table-dhote.jpg') center/cover;
+  }
+  .events .section-head{margin-inline:auto;}
+  .events .section-head .eyebrow{color:var(--gold);}
+  .events .section-head p{color:color-mix(in oklch, var(--cream) 85%, transparent); margin-inline:auto;}
+  .events .cta-row{display:flex; gap:16px; justify-content:center; margin-top:var(--space-lg); flex-wrap:wrap;}
+
+  /* ---------- reserve band ---------- */
+  .reserve{padding-block:var(--section-pad); background:var(--forest); color:var(--cream);}
+  .reserve .grid{display:grid; grid-template-columns:0.9fr 1.1fr; gap:clamp(28px,5vw,72px); align-items:start;}
+  .reserve h2{font-size:var(--fs-xl); color:var(--cream);}
+  .reserve p{margin-top:var(--space-sm); color:color-mix(in oklch, var(--cream) 80%, transparent); max-width:40ch;}
+  .reserve .infos{margin-top:var(--space-xl); display:flex; flex-direction:column; gap:14px; font-size:0.95rem;}
+  .reserve .infos strong{color:var(--gold); display:block; font-size:var(--fs-xs); letter-spacing:0.16em; text-transform:uppercase; margin-bottom:3px;}
+  form.res-form{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
+  form.res-form .full{grid-column:1/-1;}
+  form.res-form label{font-size:var(--fs-xs); letter-spacing:0.1em; text-transform:uppercase; color:var(--gold); display:block; margin-bottom:6px;}
+  form.res-form input,form.res-form select{
+    width:100%; background:transparent; border:none; border-bottom:1px solid color-mix(in oklch, var(--cream) 40%, transparent);
+    color:var(--cream); font-family:'Karla',sans-serif; font-size:1rem; padding:10px 2px;
+  }
+  form.res-form input::placeholder{color:color-mix(in oklch, var(--cream) 45%, transparent);}
+  form.res-form input:focus,form.res-form select:focus{outline:none; border-color:var(--terracotta);}
+  form.res-form select option{color:#111;}
+  form.res-form .submit-row{grid-column:1/-1; margin-top:10px;}
+
+  /* ---------- footer ---------- */
+  footer{background:var(--cream-dim); padding-block:var(--space-2xl) var(--space-lg); border-top:1px solid var(--forest-line);}
+  .foot-grid{display:grid; grid-template-columns:1.2fr 1fr 1fr; gap:var(--space-xl);}
+  .foot-brand img{height:64px; width:auto;}
+  .foot-brand p{margin-top:var(--space-sm); color:var(--forest-soft); max-width:32ch; font-size:0.92rem;}
+  footer h4{font-family:'Karla',sans-serif; font-size:var(--fs-xs); letter-spacing:0.16em; text-transform:uppercase; color:var(--terracotta); margin-bottom:14px;}
+  footer ul{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:10px;}
+  footer ul a{text-decoration:none; font-size:0.94rem;}
+  footer ul a:hover{color:var(--terracotta);}
+  .foot-bottom{
+    margin-top:var(--space-2xl); padding-top:var(--space-md); border-top:1px solid var(--forest-line);
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; font-size:0.82rem; color:var(--forest-soft);
+  }
+
+  @media (max-width:920px){
+    nav.links{
+      position:fixed; inset:0 0 0 auto; width:min(320px,80vw); background:var(--cream); flex-direction:column;
+      align-items:flex-start; justify-content:flex-start; padding:100px 32px 32px;
+      transform:translateX(100%); transition:transform .45s var(--ease-out); box-shadow:-10px 0 40px rgba(0,0,0,.15);
+    }
+    #nav-toggle:checked ~ nav.links{transform:translateX(0);}
+    .burger{display:flex;}
+    #nav-toggle:checked ~ .burger span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+    #nav-toggle:checked ~ .burger span:nth-child(2){opacity:0;}
+    #nav-toggle:checked ~ .burger span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+    .manifesto .grid, .terrasse .grid, .reserve .grid, .amb-panel{grid-template-columns:1fr;}
+    .amb-panel img{aspect-ratio:16/10;}
+    .shoppe-grid{grid-template-columns:1fr;}
+    .foot-grid{grid-template-columns:1fr; gap:var(--space-lg);}
+    form.res-form{grid-template-columns:1fr;}
+
+    /* tighten vertical rhythm so the page doesn't run so long on phones */
+    :root{--section-pad: 44px;}
+    .section-head{margin-bottom:var(--space-lg);}
+    .shoppe-card img{height:170px;}
+    .paravent{height:58vh; min-height:400px;}
+    .postcards{grid-template-columns:repeat(2,1fr); gap:18px;}
+    .reserve .infos{margin-top:var(--space-lg); gap:10px;}
+    .menu-list li{padding-block:12px;}
+    .amb-panel img{aspect-ratio:16/8;}
+    .terrasse .imgs{height:260px;}
+    .marquee{padding:10px 0;}
+    .village-grid{aspect-ratio:1/0.95;}
+    footer{padding-block:var(--space-xl) var(--space-md);}
+  }
+</style>
+
+<input type="checkbox" id="nav-toggle">
+
+<header id="site-header">
+  <a href="#top" class="brand">
+    <img src="logo-dark.png" alt="Café Village" class="badge">
+    <span>Café Village</span>
+  </a>
+
+  <nav class="links">
+    <a href="#univers">Univers</a>
+    <a href="#carte">Carte</a>
+    <a href="#terrasse">Terrasse</a>
+    <a href="#boutique">Boutique</a>
+    <a href="#evenements">Événements</a>
+    <a href="#reserver" class="btn btn-line" style="padding:10px 22px;">Réserver</a>
+  </nav>
+  <label for="nav-toggle" class="burger" aria-label="Menu"><span></span><span></span><span></span></label>
+</header>
+
+<main id="top">
+
+  <section class="hero">
+    <div class="bg"></div>
+    <div class="content">
+      <img src="logo-light.png" alt="Café Village" class="badge badge-mark">
+      <h1>Le goût<br>du partage</h1>
+      <p class="sub">Un café-restaurant à Waterloo où trois générations se croisent — sans horaires figés, sans chichis, avec beaucoup de vie.</p>
+      <div class="cta-row">
+        <a href="#reserver" class="btn btn-solid">Réserver une table</a>
+        <a href="#univers" class="btn btn-line on-dark">Découvrir les 9 univers</a>
+      </div>
+    </div>
+    <div class="scroll-cue"><span>Scroll</span><span class="line"></span></div>
+  </section>
+
+  <div class="marquee">
+    <div class="track">
+      <span>Ouvert 7j/7 · 10h–22h</span>
+      <span>Journée cool, soir bistronomique</span>
+      <span>Terrasse &amp; potager</span>
+      <span>Réservations ouvertes</span>
+      <span>Waterloo</span>
+      <span>Ouvert 7j/7 · 10h–22h</span>
+      <span>Journée cool, soir bistronomique</span>
+      <span>Terrasse &amp; potager</span>
+      <span>Réservations ouvertes</span>
+      <span>Waterloo</span>
+    </div>
+  </div>
+
+  <section class="manifesto">
+    <div class="container grid">
+      <div class="reveal">
+        <p class="eyebrow">Notre philosophie</p>
+        <blockquote>Ici, <em>pas de règles</em>. Juste l'envie de rester.</blockquote>
+        <p class="desc">Café Village n'est pas un restaurant qu'on traverse — c'est un endroit où on s'installe. Les grands-parents y retrouvent leurs habitudes, les enfants leur coin à eux, les copains leur apéro du jeudi. Une seule adresse, neuf ambiances, et beaucoup, beaucoup de vie.</p>
+      </div>
+      <div class="photo-wrap reveal reveal-delay-2">
+        <div class="ring"></div>
+        <img src="hero-friends.jpg" alt="Des amis attablés, rires et conversation autour d'un café">
+      </div>
+    </div>
+  </section>
+
+  <section class="univers" id="univers">
+    <div class="container">
+      <div class="section-head reveal">
+        <p class="eyebrow">Le plan du village</p>
+        <h2>Neuf univers, un coup d'œil</h2>
+        <p>Pas besoin de se perdre : voici le plan de Café Village. Survolez ou touchez un lieu pour le découvrir.</p>
+      </div>
+
+      <div class="view-switch reveal">
+        <button class="view-btn active" data-view="village">Le plan</button>
+        <button class="view-btn" data-view="paravent">Le paravent</button>
+        <button class="view-btn" data-view="cartes">Les cartes postales</button>
+      </div>
+
+      <div class="view-panel active" data-view-panel="village">
+      <div class="village-layout">
+        <div>
+          <svg class="village-roofline" viewBox="0 0 300 16" preserveAspectRatio="none"><polyline points="0,16 16.6,2 33.3,16 50,2 66.6,16 83.3,2 100,16 116.6,2 133.3,16 150,2 166.6,16 183.3,2 200,16 216.6,2 233.3,16 250,2 266.6,16 283.3,2 300,16"/></svg>
+          <div class="village-grid">
+            <button class="plot active" data-num="01" data-title="Orient Express" data-img="orient-express.jpg"
+              data-desc="Banquettes capitonnées, cuivres et velours : embarquement immédiat pour un dîner qui a du panache." data-link="#carte" data-link-label="Voir la carte">
+              <img src="orient-express.jpg" alt="">
+              <span class="plot-face">
+                <span class="plot-top"><span class="plot-num">01</span><span class="plot-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="9" rx="2"/><circle cx="7.5" cy="19.5" r="1.4"/><circle cx="16.5" cy="19.5" r="1.4"/><path d="M7 8V5.5A1.5 1.5 0 0 1 8.5 4h7A1.5 1.5 0 0 1 17 5.5V8"/></svg></span></span>
+                <span class="plot-name">Orient Express</span>
+              </span>
+            </button>
+
+            <button class="plot" data-num="02" data-title="Table d'Hôte" data-img="table-dhote.jpg"
+              data-desc="La grande tablée pour les repas d'équipe, les anniversaires et les groupes qui débordent de monde." data-link="#evenements" data-link-label="Organiser un événement">
+              <img src="table-dhote.jpg" alt="">
+              <span class="plot-face">
+                <span class="plot-top"><span class="plot-num">02</span><span class="plot-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="9" width="20" height="3"/><line x1="5" y1="12" x2="5" y2="19"/><line x1="19" y1="12" x2="19" y2="19"/></svg></span></span>
+                <span class="plot-name">Table d'Hôte</span>
+              </span>
+            </button>
+
+            <button class="plot" data-num="03" data-title="Le Bar" data-img="bar-room.jpg"
+              data-desc="Banquette verte, lumière basse : la salle pour un verre entre amis, sans regarder l'heure." data-link="#carte" data-link-label="Voir la carte">
+              <img src="bar-room.jpg" alt="">
+              <span class="plot-face">
+                <span class="plot-top"><span class="plot-num">03</span><span class="plot-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16l-7 8.5v6"/><line x1="8.5" y1="20" x2="15.5" y2="20"/></svg></span></span>
+                <span class="plot-name">Le Bar</span>
+              </span>
+            </button>
+
+            <button class="plot" data-num="04" data-title="Coin des Petits" data-img="kids-corner.jpg"
+              data-desc="Pendant que les grands discutent, les petits ont leur repaire : livres, jeux et coussins." data-link="#carte" data-link-label="Voir la carte">
+              <img src="kids-corner.jpg" alt="">
+              <span class="plot-face">
+                <span class="plot-top"><span class="plot-num">04</span><span class="plot-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="7"/><path d="M12 16c-1 3-.4 4.6 0 6"/></svg></span></span>
+                <span class="plot-name">Coin des Petits</span>
+              </span>
+            </button>
+
+            <button class="plot plot-garden" data-num="05" data-title="Terrasse &amp; Potager" data-img="terrace.jpg"
+              data-desc="Le cœur du village : légumes maison, herbes fraîches et le meilleur siège de la place, à l'ombre." data-link="#terrasse" data-link-label="Découvrir la terrasse">
+              <img src="potager.jpg" alt="">
+              <span class="plot-face">
+                <span class="plot-top"><span class="plot-num">05</span><span class="plot-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21V10"/><path d="M12 13c0-4-3-6-7-6 0 4 3 7 7 6z"/><path d="M12 10c0-4 3-6 7-6 0 4-3 7-7 6z"/></svg></span></span>
+                <span class="plot-name">Terrasse &amp; Potager</span>
+              </span>
+            </button>
+
+            <button class="plot" data-num="06" data-title="Salle de Billard" data-img="billiard.jpg"
+              data-desc="Un dernier café, une partie de billard — et personne ne veut plus rentrer." data-link="#carte" data-link-label="Voir la carte">
+              <img src="billiard.jpg" alt="">
+              <span class="plot-face">
+                <span class="plot-top"><span class="plot-num">06</span><span class="plot-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="3"/><circle cx="16" cy="16" r="3"/><line x1="10.2" y1="10.2" x2="13.8" y2="13.8"/></svg></span></span>
+                <span class="plot-name">Salle de Billard</span>
+              </span>
+            </button>
+
+            <button class="plot" data-num="07" data-title="Comptoir Traiteur" data-img="traiteur.jpg"
+              data-desc="Café, pâtisseries et plats à emporter, pour les journées pressées." data-link="#boutique" data-link-label="Découvrir la boutique">
+              <img src="traiteur.jpg" alt="">
+              <span class="plot-face">
+                <span class="plot-top"><span class="plot-num">07</span><span class="plot-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 9h11v6a4 4 0 0 1-4 4H9a4 4 0 0 1-4-4V9z"/><path d="M16 10h2a2 2 0 0 1 0 4h-2"/><path d="M8 3c0 1.2-1 1.3-1 2.5S8 7 8 7"/><path d="M12 3c0 1.2-1 1.3-1 2.5S12 7 12 7"/></svg></span></span>
+                <span class="plot-name">Comptoir Traiteur</span>
+              </span>
+            </button>
+
+            <button class="plot" data-num="08" data-title="Comptoir Cadeaux" data-img="boutique.jpg"
+              data-desc="Bougies, huiles et petits cadeaux d'anniversaire, choisis avec soin." data-link="#boutique" data-link-label="Découvrir la boutique">
+              <img src="boutique.jpg" alt="">
+              <span class="plot-face">
+                <span class="plot-top"><span class="plot-num">08</span><span class="plot-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="9" width="18" height="12" rx="1"/><path d="M3 9V6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v3"/><line x1="12" y1="4" x2="12" y2="21"/></svg></span></span>
+                <span class="plot-name">Comptoir Cadeaux</span>
+              </span>
+            </button>
+
+            <button class="plot" data-num="09" data-title="La Galerie" data-img="galerie.jpg"
+              data-desc="Expositions locales et objets à emporter, pour prolonger la visite au-delà de la table." data-link="#boutique" data-link-label="Découvrir la boutique">
+              <img src="galerie.jpg" alt="">
+              <span class="plot-face">
+                <span class="plot-top"><span class="plot-num">09</span><span class="plot-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="14" rx="1"/><circle cx="8.5" cy="9" r="1.5"/><path d="M21 15l-5.5-5-6 6"/></svg></span></span>
+                <span class="plot-name">La Galerie</span>
+              </span>
+            </button>
+          </div>
+        </div>
+
+        <div class="village-detail">
+          <span class="vd-num" id="vd-num">01</span>
+          <img id="vd-img" src="orient-express.jpg" alt="">
+          <h3 id="vd-title">Orient Express</h3>
+          <p id="vd-text">Banquettes capitonnées, cuivres et velours : embarquement immédiat pour un dîner qui a du panache.</p>
+          <div class="vd-cta"><a id="vd-link" class="btn btn-line" href="#carte">Voir la carte</a></div>
+        </div>
+      </div>
+      </div>
+
+      <div class="view-panel" data-view-panel="paravent">
+        <div class="paravent">
+          <button class="slat active" data-num="01" data-title="Orient Express" data-img="orient-express.jpg" data-desc="Banquettes capitonnées, cuivres et velours : embarquement immédiat pour un dîner qui a du panache." data-link="#carte" data-link-label="Voir la carte">
+            <img src="orient-express.jpg" alt="">
+            <span class="slat-scrim"></span>
+            <span class="slat-closed"><span class="slat-num">01</span><span class="slat-label">Orient Express</span></span>
+            <span class="slat-open"><span class="n">01</span><h3>Orient Express</h3><p>Banquettes capitonnées, cuivres et velours : embarquement immédiat pour un dîner qui a du panache.</p><a class="btn btn-line" style="border-color:var(--cream); color:var(--cream);" href="#carte">Voir la carte</a></span>
+          </button>
+          <button class="slat" data-num="02" data-title="Table d'Hôte" data-img="table-dhote.jpg" data-desc="La grande tablée pour les repas d'équipe, les anniversaires et les groupes qui débordent de monde." data-link="#evenements" data-link-label="Organiser un événement">
+            <img src="table-dhote.jpg" alt="">
+            <span class="slat-scrim"></span>
+            <span class="slat-closed"><span class="slat-num">02</span><span class="slat-label">Table d'Hôte</span></span>
+            <span class="slat-open"><span class="n">02</span><h3>Table d'Hôte</h3><p>La grande tablée pour les repas d'équipe, les anniversaires et les groupes qui débordent de monde.</p><a class="btn btn-line" style="border-color:var(--cream); color:var(--cream);" href="#evenements">Organiser un événement</a></span>
+          </button>
+          <button class="slat" data-num="03" data-title="Le Bar" data-img="bar-room.jpg" data-desc="Banquette verte, lumière basse : la salle pour un verre entre amis, sans regarder l'heure." data-link="#carte" data-link-label="Voir la carte">
+            <img src="bar-room.jpg" alt="">
+            <span class="slat-scrim"></span>
+            <span class="slat-closed"><span class="slat-num">03</span><span class="slat-label">Le Bar</span></span>
+            <span class="slat-open"><span class="n">03</span><h3>Le Bar</h3><p>Banquette verte, lumière basse : la salle pour un verre entre amis, sans regarder l'heure.</p><a class="btn btn-line" style="border-color:var(--cream); color:var(--cream);" href="#carte">Voir la carte</a></span>
+          </button>
+          <button class="slat" data-num="04" data-title="Coin des Petits" data-img="kids-corner.jpg" data-desc="Pendant que les grands discutent, les petits ont leur repaire : livres, jeux et coussins." data-link="#carte" data-link-label="Voir la carte">
+            <img src="kids-corner.jpg" alt="">
+            <span class="slat-scrim"></span>
+            <span class="slat-closed"><span class="slat-num">04</span><span class="slat-label">Coin des Petits</span></span>
+            <span class="slat-open"><span class="n">04</span><h3>Coin des Petits</h3><p>Pendant que les grands discutent, les petits ont leur repaire : livres, jeux et coussins.</p><a class="btn btn-line" style="border-color:var(--cream); color:var(--cream);" href="#carte">Voir la carte</a></span>
+          </button>
+          <button class="slat" data-num="05" data-title="Terrasse &amp; Potager" data-img="terrace.jpg" data-desc="Le cœur du village : légumes maison, herbes fraîches et le meilleur siège de la place, à l'ombre." data-link="#terrasse" data-link-label="Découvrir la terrasse">
+            <img src="potager.jpg" alt="">
+            <span class="slat-scrim"></span>
+            <span class="slat-closed"><span class="slat-num">05</span><span class="slat-label">Terrasse &amp; Potager</span></span>
+            <span class="slat-open"><span class="n">05</span><h3>Terrasse &amp; Potager</h3><p>Le cœur du village : légumes maison, herbes fraîches et le meilleur siège de la place, à l'ombre.</p><a class="btn btn-line" style="border-color:var(--cream); color:var(--cream);" href="#terrasse">Découvrir la terrasse</a></span>
+          </button>
+          <button class="slat" data-num="06" data-title="Salle de Billard" data-img="billiard.jpg" data-desc="Un dernier café, une partie de billard — et personne ne veut plus rentrer." data-link="#carte" data-link-label="Voir la carte">
+            <img src="billiard.jpg" alt="">
+            <span class="slat-scrim"></span>
+            <span class="slat-closed"><span class="slat-num">06</span><span class="slat-label">Salle de Billard</span></span>
+            <span class="slat-open"><span class="n">06</span><h3>Salle de Billard</h3><p>Un dernier café, une partie de billard — et personne ne veut plus rentrer.</p><a class="btn btn-line" style="border-color:var(--cream); color:var(--cream);" href="#carte">Voir la carte</a></span>
+          </button>
+          <button class="slat" data-num="07" data-title="Comptoir Traiteur" data-img="traiteur.jpg" data-desc="Café, pâtisseries et plats à emporter, pour les journées pressées." data-link="#boutique" data-link-label="Découvrir la boutique">
+            <img src="traiteur.jpg" alt="">
+            <span class="slat-scrim"></span>
+            <span class="slat-closed"><span class="slat-num">07</span><span class="slat-label">Comptoir Traiteur</span></span>
+            <span class="slat-open"><span class="n">07</span><h3>Comptoir Traiteur</h3><p>Café, pâtisseries et plats à emporter, pour les journées pressées.</p><a class="btn btn-line" style="border-color:var(--cream); color:var(--cream);" href="#boutique">Découvrir la boutique</a></span>
+          </button>
+          <button class="slat" data-num="08" data-title="Comptoir Cadeaux" data-img="boutique.jpg" data-desc="Bougies, huiles et petits cadeaux d'anniversaire, choisis avec soin." data-link="#boutique" data-link-label="Découvrir la boutique">
+            <img src="boutique.jpg" alt="">
+            <span class="slat-scrim"></span>
+            <span class="slat-closed"><span class="slat-num">08</span><span class="slat-label">Comptoir Cadeaux</span></span>
+            <span class="slat-open"><span class="n">08</span><h3>Comptoir Cadeaux</h3><p>Bougies, huiles et petits cadeaux d'anniversaire, choisis avec soin.</p><a class="btn btn-line" style="border-color:var(--cream); color:var(--cream);" href="#boutique">Découvrir la boutique</a></span>
+          </button>
+          <button class="slat" data-num="09" data-title="La Galerie" data-img="galerie.jpg" data-desc="Expositions locales et objets à emporter, pour prolonger la visite au-delà de la table." data-link="#boutique" data-link-label="Découvrir la boutique">
+            <img src="galerie.jpg" alt="">
+            <span class="slat-scrim"></span>
+            <span class="slat-closed"><span class="slat-num">09</span><span class="slat-label">La Galerie</span></span>
+            <span class="slat-open"><span class="n">09</span><h3>La Galerie</h3><p>Expositions locales et objets à emporter, pour prolonger la visite au-delà de la table.</p><a class="btn btn-line" style="border-color:var(--cream); color:var(--cream);" href="#boutique">Découvrir la boutique</a></span>
+          </button>
+        </div>
+      </div>
+
+      <div class="view-panel" data-view-panel="cartes">
+        <div class="postcards">
+          <button class="postcard" style="--tilt:-3deg">
+            <span class="pc-inner">
+              <span class="pc-front"><img src="orient-express.jpg" alt="Orient Express"><span class="pc-caption"><span class="name">Orient Express</span><span class="n">01</span></span></span>
+              <span class="pc-back">
+                <span class="pc-stamp"><svg viewBox="0 0 40 40"><rect x="2" y="2" width="36" height="36" rx="2" fill="none" stroke="currentColor" stroke-width="1.4" stroke-dasharray="3 2"/><g stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"><ellipse cx="24" cy="20" rx="5" ry="3.6" transform="rotate(20 24 20)"/><line x1="20" y1="18" x2="12" y2="14"/></g></svg></span>
+                <span class="n">01</span><h3>Orient Express</h3>
+                <p>Banquettes capitonnées, cuivres et velours : embarquement immédiat pour un dîner qui a du panache.</p>
+                <a class="btn btn-line" href="#carte">Voir la carte</a>
+              </span>
+            </span>
+          </button>
+
+          <button class="postcard" style="--tilt:2deg">
+            <span class="pc-inner">
+              <span class="pc-front"><img src="table-dhote.jpg" alt="Table d'Hôte"><span class="pc-caption"><span class="name">Table d'Hôte</span><span class="n">02</span></span></span>
+              <span class="pc-back">
+                <span class="pc-stamp"><svg viewBox="0 0 40 40"><rect x="2" y="2" width="36" height="36" rx="2" fill="none" stroke="currentColor" stroke-width="1.4" stroke-dasharray="3 2"/><g stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"><ellipse cx="24" cy="20" rx="5" ry="3.6" transform="rotate(20 24 20)"/><line x1="20" y1="18" x2="12" y2="14"/></g></svg></span>
+                <span class="n">02</span><h3>Table d'Hôte</h3>
+                <p>La grande tablée pour les repas d'équipe, les anniversaires et les groupes qui débordent de monde.</p>
+                <a class="btn btn-line" href="#evenements">Organiser un événement</a>
+              </span>
+            </span>
+          </button>
+
+          <button class="postcard" style="--tilt:-4deg">
+            <span class="pc-inner">
+              <span class="pc-front"><img src="bar-room.jpg" alt="Le Bar"><span class="pc-caption"><span class="name">Le Bar</span><span class="n">03</span></span></span>
+              <span class="pc-back">
+                <span class="pc-stamp"><svg viewBox="0 0 40 40"><rect x="2" y="2" width="36" height="36" rx="2" fill="none" stroke="currentColor" stroke-width="1.4" stroke-dasharray="3 2"/><g stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"><ellipse cx="24" cy="20" rx="5" ry="3.6" transform="rotate(20 24 20)"/><line x1="20" y1="18" x2="12" y2="14"/></g></svg></span>
+                <span class="n">03</span><h3>Le Bar</h3>
+                <p>Banquette verte, lumière basse : la salle pour un verre entre amis, sans regarder l'heure.</p>
+                <a class="btn btn-line" href="#carte">Voir la carte</a>
+              </span>
+            </span>
+          </button>
+
+          <button class="postcard" style="--tilt:3deg">
+            <span class="pc-inner">
+              <span class="pc-front"><img src="kids-corner.jpg" alt="Coin des Petits"><span class="pc-caption"><span class="name">Coin des Petits</span><span class="n">04</span></span></span>
+              <span class="pc-back">
+                <span class="pc-stamp"><svg viewBox="0 0 40 40"><rect x="2" y="2" width="36" height="36" rx="2" fill="none" stroke="currentColor" stroke-width="1.4" stroke-dasharray="3 2"/><g stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"><ellipse cx="24" cy="20" rx="5" ry="3.6" transform="rotate(20 24 20)"/><line x1="20" y1="18" x2="12" y2="14"/></g></svg></span>
+                <span class="n">04</span><h3>Coin des Petits</h3>
+                <p>Pendant que les grands discutent, les petits ont leur repaire : livres, jeux et coussins.</p>
+                <a class="btn btn-line" href="#carte">Voir la carte</a>
+              </span>
+            </span>
+          </button>
+
+          <button class="postcard" style="--tilt:-2deg">
+            <span class="pc-inner">
+              <span class="pc-front"><img src="potager.jpg" alt="Terrasse &amp; Potager"><span class="pc-caption"><span class="name">Terrasse &amp; Potager</span><span class="n">05</span></span></span>
+              <span class="pc-back">
+                <span class="pc-stamp"><svg viewBox="0 0 40 40"><rect x="2" y="2" width="36" height="36" rx="2" fill="none" stroke="currentColor" stroke-width="1.4" stroke-dasharray="3 2"/><g stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"><ellipse cx="24" cy="20" rx="5" ry="3.6" transform="rotate(20 24 20)"/><line x1="20" y1="18" x2="12" y2="14"/></g></svg></span>
+                <span class="n">05</span><h3>Terrasse &amp; Potager</h3>
+                <p>Le cœur du village : légumes maison, herbes fraîches et le meilleur siège de la place, à l'ombre.</p>
+                <a class="btn btn-line" href="#terrasse">Découvrir la terrasse</a>
+              </span>
+            </span>
+          </button>
+
+          <button class="postcard" style="--tilt:4deg">
+            <span class="pc-inner">
+              <span class="pc-front"><img src="billiard.jpg" alt="Salle de Billard"><span class="pc-caption"><span class="name">Salle de Billard</span><span class="n">06</span></span></span>
+              <span class="pc-back">
+                <span class="pc-stamp"><svg viewBox="0 0 40 40"><rect x="2" y="2" width="36" height="36" rx="2" fill="none" stroke="currentColor" stroke-width="1.4" stroke-dasharray="3 2"/><g stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"><ellipse cx="24" cy="20" rx="5" ry="3.6" transform="rotate(20 24 20)"/><line x1="20" y1="18" x2="12" y2="14"/></g></svg></span>
+                <span class="n">06</span><h3>Salle de Billard</h3>
+                <p>Un dernier café, une partie de billard — et personne ne veut plus rentrer.</p>
+                <a class="btn btn-line" href="#carte">Voir la carte</a>
+              </span>
+            </span>
+          </button>
+
+          <button class="postcard" style="--tilt:-3deg">
+            <span class="pc-inner">
+              <span class="pc-front"><img src="traiteur.jpg" alt="Comptoir Traiteur"><span class="pc-caption"><span class="name">Comptoir Traiteur</span><span class="n">07</span></span></span>
+              <span class="pc-back">
+                <span class="pc-stamp"><svg viewBox="0 0 40 40"><rect x="2" y="2" width="36" height="36" rx="2" fill="none" stroke="currentColor" stroke-width="1.4" stroke-dasharray="3 2"/><g stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"><ellipse cx="24" cy="20" rx="5" ry="3.6" transform="rotate(20 24 20)"/><line x1="20" y1="18" x2="12" y2="14"/></g></svg></span>
+                <span class="n">07</span><h3>Comptoir Traiteur</h3>
+                <p>Café, pâtisseries et plats à emporter, pour les journées pressées.</p>
+                <a class="btn btn-line" href="#boutique">Découvrir la boutique</a>
+              </span>
+            </span>
+          </button>
+
+          <button class="postcard" style="--tilt:2deg">
+            <span class="pc-inner">
+              <span class="pc-front"><img src="boutique.jpg" alt="Comptoir Cadeaux"><span class="pc-caption"><span class="name">Comptoir Cadeaux</span><span class="n">08</span></span></span>
+              <span class="pc-back">
+                <span class="pc-stamp"><svg viewBox="0 0 40 40"><rect x="2" y="2" width="36" height="36" rx="2" fill="none" stroke="currentColor" stroke-width="1.4" stroke-dasharray="3 2"/><g stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"><ellipse cx="24" cy="20" rx="5" ry="3.6" transform="rotate(20 24 20)"/><line x1="20" y1="18" x2="12" y2="14"/></g></svg></span>
+                <span class="n">08</span><h3>Comptoir Cadeaux</h3>
+                <p>Bougies, huiles et petits cadeaux d'anniversaire, choisis avec soin.</p>
+                <a class="btn btn-line" href="#boutique">Découvrir la boutique</a>
+              </span>
+            </span>
+          </button>
+
+          <button class="postcard" style="--tilt:-5deg">
+            <span class="pc-inner">
+              <span class="pc-front"><img src="galerie.jpg" alt="La Galerie"><span class="pc-caption"><span class="name">La Galerie</span><span class="n">09</span></span></span>
+              <span class="pc-back">
+                <span class="pc-stamp"><svg viewBox="0 0 40 40"><rect x="2" y="2" width="36" height="36" rx="2" fill="none" stroke="currentColor" stroke-width="1.4" stroke-dasharray="3 2"/><g stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"><ellipse cx="24" cy="20" rx="5" ry="3.6" transform="rotate(20 24 20)"/><line x1="20" y1="18" x2="12" y2="14"/></g></svg></span>
+                <span class="n">09</span><h3>La Galerie</h3>
+                <p>Expositions locales et objets à emporter, pour prolonger la visite au-delà de la table.</p>
+                <a class="btn btn-line" href="#boutique">Découvrir la boutique</a>
+              </span>
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ambiances" id="carte">
+    <div class="container">
+      <div class="section-head reveal">
+        <p class="eyebrow">La carte</p>
+        <h2>Le jour, on est cool.<br>Le soir, on se pose.</h2>
+        <p>Deux ambiances, deux cartes. Pas de commande en ligne — on vous sert à table, comme il se doit.</p>
+      </div>
+
+      <div class="amb-tabs">
+        <button class="amb-tab active" data-tab="jour">☀ Journée</button>
+        <button class="amb-tab" data-tab="soir">🌙 Soir bistronomique</button>
+      </div>
+
+      <div class="amb-panel active" id="panel-jour">
+        <img src="menu-jour.jpg" alt="Assiette de brunch, œuf poché et légumes de saison">
+        <div>
+          <span class="tag">10h – 18h</span>
+          <h3>Carte du jour</h3>
+          <p class="lead">Simple, frais, généreux. On grignote, on prolonge le café, on refait le monde.</p>
+          <ul class="menu-list">
+            <li><span><span class="name">Œuf poché du potager</span><span class="note">légumes de saison, pain grillé maison</span></span><span class="price">12</span></li>
+            <li><span><span class="name">Bol du village</span><span class="note">céréales, granola maison, fruits frais</span></span><span class="price">9</span></li>
+            <li><span><span class="name">Tartine du comptoir traiteur</span><span class="note">selon l'arrivage du jour</span></span><span class="price">11</span></li>
+            <li><span><span class="name">Café ou thé, pâtisserie du jour</span><span class="note">à toute heure</span></span><span class="price">6</span></li>
+          </ul>
+          <p class="menu-note">Carte complète et suggestions du jour affichées en salle.</p>
+        </div>
+      </div>
+
+      <div class="amb-panel" id="panel-soir">
+        <img src="menu-soir.jpg" alt="Assiette bistronomique élégante du soir">
+        <div>
+          <span class="tag">18h – 22h</span>
+          <h3>Carte bistronomique</h3>
+          <p class="lead">Même convivialité, table dressée. Les recettes de saison, un verre choisi, et le temps de s'attarder.</p>
+          <ul class="menu-list">
+            <li><span><span class="name">Légumes du potager, façon bistronomique</span><span class="note">récolte du jour</span></span><span class="price">16</span></li>
+            <li><span><span class="name">Suggestion du chef</span><span class="note">selon arrivage et saison</span></span><span class="price">26</span></li>
+            <li><span><span class="name">Fromages &amp; charcuteries à partager</span><span class="note">planche pour la table</span></span><span class="price">19</span></li>
+            <li><span><span class="name">Dessert maison, huile &amp; épices du comptoir</span><span class="note">recette du village</span></span><span class="price">10</span></li>
+          </ul>
+          <p class="menu-note">Table d'hôte disponible sur réservation pour les groupes.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="terrasse" id="terrasse">
+    <div class="container grid">
+      <div class="reveal">
+        <div class="section-head">
+          <p class="eyebrow">Dehors</p>
+          <h2>La terrasse &amp; le potager</h2>
+          <p>Un coin de verdure en plein Waterloo — les légumes qui finissent dans l'assiette poussent à quelques mètres de la table.</p>
+        </div>
+        <p class="body">Tomates, herbes et légumes de saison sont cultivés dans notre potager. On les récolte le matin, on les sert le midi — c'est aussi simple que ça.</p>
+      </div>
+      <div class="imgs reveal reveal-delay-2">
+        <img class="i1" src="terrace.jpg" alt="Terrasse ombragée de Café Village">
+        <img class="i2" src="potager.jpg" alt="Potager maison, légumes de saison">
+      </div>
+    </div>
+  </section>
+
+  <section class="shoppe" id="boutique">
+    <div class="container">
+      <div class="section-head reveal">
+        <p class="eyebrow">À emporter</p>
+        <h2>Le comptoir &amp; la galerie</h2>
+        <p>Une bougie pour dire merci, une huile pour prolonger la table, une pièce chinée pour la maison.</p>
+      </div>
+      <div class="shoppe-grid">
+        <div class="shoppe-card reveal">
+          <img src="boutique.jpg" alt="Bougies, huiles et idées cadeaux">
+          <div class="body">
+            <h3>Le comptoir cadeaux</h3>
+            <p>Bougies parfumées, huiles artisanales et petites attentions pour un anniversaire réussi.</p>
+            <a href="#reserver" class="btn btn-line">Nous demander</a>
+          </div>
+        </div>
+        <div class="shoppe-card reveal reveal-delay-1">
+          <img src="galerie.jpg" alt="Galerie d'objets et d'expositions locales">
+          <div class="body">
+            <h3>La galerie</h3>
+            <p>Expositions d'artistes locaux et objets à emporter — la visite continue après le café.</p>
+            <a href="#reserver" class="btn btn-line">En savoir plus</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="events" id="evenements">
+    <div class="container">
+      <div class="section-head reveal">
+        <p class="eyebrow">Anniversaires &amp; entreprises</p>
+        <h2>Organisez votre tablée</h2>
+        <p>La table d'hôte accueille les grands groupes : repas d'équipe, anniversaires en famille, fêtes qui débordent de monde. On s'occupe du reste.</p>
+        <div class="cta-row">
+          <a href="#reserver" class="btn btn-solid">Demander un devis</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="reserve" id="reserver">
+    <div class="container grid">
+      <div class="reveal">
+        <p class="eyebrow" style="color:var(--gold)">Réservation</p>
+        <h2>Une table vous attend</h2>
+        <p>Dites-nous quand vous venez — on garde la meilleure place.</p>
+        <div class="infos">
+          <div><strong>Adresse</strong>Café Village · Waterloo, Belgique</div>
+          <div><strong>Horaires</strong>Ouvert tous les jours, 10h – 22h</div>
+          <div><strong>Suivez-nous</strong>
+            <a href="#" style="text-decoration:underline;">Facebook</a> · <a href="#" style="text-decoration:underline;">Instagram</a>
+          </div>
+        </div>
+      </div>
+      <form class="res-form reveal reveal-delay-1" onsubmit="event.preventDefault(); this.querySelector('.submit-row button').textContent='Merci, à très vite !';">
+        <div>
+          <label for="f-name">Nom</label>
+          <input id="f-name" type="text" placeholder="Votre nom" required>
+        </div>
+        <div>
+          <label for="f-phone">Téléphone</label>
+          <input id="f-phone" type="tel" placeholder="+32 ..." required>
+        </div>
+        <div>
+          <label for="f-date">Date</label>
+          <input id="f-date" type="date" required>
+        </div>
+        <div>
+          <label for="f-time">Heure</label>
+          <input id="f-time" type="time" required>
+        </div>
+        <div class="full">
+          <label for="f-guests">Nombre de personnes</label>
+          <select id="f-guests">
+            <option>1 - 2 personnes</option>
+            <option>3 - 4 personnes</option>
+            <option>5 - 8 personnes</option>
+            <option>Groupe / table d'hôte (9+)</option>
+          </select>
+        </div>
+        <div class="submit-row">
+          <button type="submit" class="btn btn-solid" style="border:none;">Envoyer la demande</button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="container">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <img src="logo-dark.png" alt="Café Village" class="badge">
+        <p>Café-restaurant convivial et intergénérationnel à Waterloo. Neuf univers, une seule envie : que vous restiez.</p>
+      </div>
+      <div>
+        <h4>Explorer</h4>
+        <ul>
+          <li><a href="#univers">Les 9 univers</a></li>
+          <li><a href="#carte">La carte</a></li>
+          <li><a href="#terrasse">Terrasse &amp; potager</a></li>
+          <li><a href="#boutique">Boutique &amp; galerie</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Pratique</h4>
+        <ul>
+          <li><a href="#evenements">Événements &amp; anniversaires</a></li>
+          <li><a href="#reserver">Réserver une table</a></li>
+          <li><a href="#">Facebook</a></li>
+          <li><a href="#">Instagram</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© Café Village · Waterloo</span>
+      <span>Charte graphique Salt&amp;Paper · Photos temporaires libres de droits</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const header = document.getElementById('site-header');
+  addEventListener('scroll', () => {
+    header.classList.toggle('scrolled', scrollY > 40);
+  }, { passive: true });
+
+  const nav = document.querySelector('nav.links');
+  nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    document.getElementById('nav-toggle').checked = false;
+  }));
+
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in-view'); });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+  const plots = document.querySelectorAll('.plot');
+  const vd = {
+    num: document.getElementById('vd-num'),
+    img: document.getElementById('vd-img'),
+    title: document.getElementById('vd-title'),
+    text: document.getElementById('vd-text'),
+    link: document.getElementById('vd-link'),
+  };
+  function showPlot(el){
+    plots.forEach(p => p.classList.remove('active'));
+    el.classList.add('active');
+    vd.num.textContent = el.dataset.num;
+    vd.img.src = el.dataset.img;
+    vd.img.alt = el.dataset.title;
+    vd.title.textContent = el.dataset.title;
+    vd.text.textContent = el.dataset.desc;
+    vd.link.textContent = el.dataset.linkLabel;
+    vd.link.href = el.dataset.link;
+  }
+  plots.forEach(p => {
+    p.addEventListener('mouseenter', () => showPlot(p));
+    p.addEventListener('focus', () => showPlot(p));
+    p.addEventListener('click', () => showPlot(p));
+  });
+
+  document.querySelectorAll('.view-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.view-panel').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelector('[data-view-panel="' + btn.dataset.view + '"]').classList.add('active');
+    });
+  });
+
+  const slats = document.querySelectorAll('.slat');
+  function openSlat(el){
+    slats.forEach(s => s.classList.remove('active'));
+    el.classList.add('active');
+  }
+  slats.forEach(s => {
+    s.addEventListener('click', () => openSlat(s));
+    s.addEventListener('focus', () => openSlat(s));
+  });
+
+  const postcards = document.querySelectorAll('.postcard');
+  postcards.forEach(card => {
+    card.addEventListener('click', () => {
+      const wasFlipped = card.classList.contains('flipped');
+      postcards.forEach(c => c.classList.remove('flipped'));
+      if (!wasFlipped) card.classList.add('flipped');
+    });
+  });
+
+  document.querySelectorAll('.amb-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.amb-tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.amb-panel').forEach(p => p.classList.remove('active'));
+      tab.classList.add('active');
+      document.getElementById('panel-' + tab.dataset.tab).classList.add('active');
+    });
+  });
+</script>
+
+</body></html>
