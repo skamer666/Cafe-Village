@@ -149,15 +149,6 @@
     max-width:52ch; margin-inline:auto; color:color-mix(in oklch, var(--cream) 88%, transparent);
   }
   .hero .cta-row{display:flex; gap:16px; justify-content:center; flex-wrap:wrap; margin-top:var(--space-xl);}
-  .hero .scroll-cue{
-    position:absolute; bottom:28px; left:50%; transform:translateX(-50%); z-index:1;
-    display:flex; flex-direction:column; align-items:center; gap:8px;
-    font-size:var(--fs-xs); letter-spacing:0.2em; text-transform:uppercase; color:var(--cream);
-    opacity:.85;
-  }
-  .scroll-cue .line{width:1px; height:34px; background:currentColor; overflow:hidden; position:relative;}
-  .scroll-cue .line::after{content:""; position:absolute; top:-100%; left:0; width:100%; height:100%; background:var(--terracotta); animation:cueflow 1.8s ease-in-out infinite;}
-  @keyframes cueflow{ to{top:100%;} }
 
   /* ---------- marquee ---------- */
   .marquee{
@@ -268,8 +259,9 @@
     pointer-events:none; transition:background .5s var(--ease-out);
   }
   .splash-overlay.open{background:rgba(9,18,14,.5);}
+  .splash-stage{position:absolute; top:0; left:0; width:100%; z-index:91; pointer-events:none;}
   .splash-photo{
-    position:fixed; top:0; left:0; width:150px; aspect-ratio:3/4; object-fit:cover;
+    position:absolute; top:0; left:0; width:150px; aspect-ratio:3/4; object-fit:cover;
     border:6px solid var(--cream); box-shadow:0 18px 40px rgba(0,0,0,.4); border-radius:2px;
     opacity:0; pointer-events:none; will-change:transform, opacity;
     transform:translate(var(--ox),var(--oy)) translate(-50%,-50%) scale(.2) rotate(0deg);
@@ -437,7 +429,6 @@
         <a href="#univers" class="btn btn-line on-dark">Découvrir les 9 univers</a>
       </div>
     </div>
-    <div class="scroll-cue"><span>Scroll</span><span class="line"></span></div>
   </section>
 
   <div class="marquee">
@@ -750,6 +741,7 @@
 </footer>
 
 <div class="splash-overlay" id="splash-overlay" aria-hidden="true"></div>
+<div class="splash-stage" id="splash-stage"></div>
 
 <script>
   const header = document.getElementById('site-header');
@@ -767,7 +759,10 @@
   }, { threshold: 0.15 });
   document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 
-  const splash = { overlay: document.getElementById('splash-overlay') };
+  const splash = {
+    overlay: document.getElementById('splash-overlay'),
+    stage: document.getElementById('splash-stage'),
+  };
   const postcards = document.querySelectorAll('.postcard');
 
   // preload every gallery photo once, up front, so the burst never waits on the network
@@ -775,30 +770,74 @@
   postcards.forEach(c => (c.dataset.gallery || '').split(',').forEach(f => { const t = f.trim(); if (t) preload.add(t); }));
   preload.forEach(src => { const im = new Image(); im.src = src; });
 
+  // Fixed, hand-placed fan layouts (never random): offsets in units of the
+  // photo's own width/height, drawn upward from the card like a spread hand
+  // of cards. Index 0 is the outer-left photo, last is the outer-right one.
+  const FAN_LAYOUTS = {
+    1: [{ dx: 0, dy: -0.72, rot: -3 }],
+    2: [{ dx: -0.62, dy: -0.55, rot: -10 }, { dx: 0.62, dy: -0.55, rot: 10 }],
+    3: [{ dx: -1.00, dy: -0.30, rot: -13 }, { dx: 0, dy: -0.68, rot: 0 }, { dx: 1.00, dy: -0.30, rot: 13 }],
+    4: [{ dx: -1.25, dy: -0.18, rot: -15 }, { dx: -0.42, dy: -0.58, rot: -6 }, { dx: 0.42, dy: -0.58, rot: 6 }, { dx: 1.25, dy: -0.18, rot: 15 }],
+    5: [{ dx: -1.50, dy: -0.08, rot: -16 }, { dx: -0.75, dy: -0.46, rot: -9 }, { dx: 0, dy: -0.62, rot: 0 }, { dx: 0.75, dy: -0.46, rot: 9 }, { dx: 1.50, dy: -0.08, rot: 16 }],
+  };
+  function photoWidthFor(vw){
+    return vw <= 920 ? Math.max(110, Math.min(170, vw * 0.30)) : 150;
+  }
+
   function openSplash(card){
-    splash.overlay.querySelectorAll('.splash-photo').forEach(el => el.remove());
+    splash.stage.querySelectorAll('.splash-photo').forEach(el => el.remove());
     const files = (card.dataset.gallery || '').split(',').map(f => f.trim()).filter(Boolean).slice(0, 5);
+    const layout = FAN_LAYOUTS[files.length] || FAN_LAYOUTS[5];
 
     const rect = card.getBoundingClientRect();
-    const ox = rect.left + rect.width / 2;
-    const oy = rect.top + rect.height / 2;
+    const scrollX = window.scrollX, scrollY = window.scrollY;
     const vw = innerWidth, vh = innerHeight;
-    const photoW = Math.min(150, vw * 0.38);
-    const halfW = photoW / 2 + 14, halfH = (photoW * 4 / 3) / 2 + 14;
     const headerH = 88;
-    const minX = halfW, maxX = Math.max(halfW, vw - halfW);
-    const minY = headerH + halfH, maxY = Math.max(minY, vh - halfH);
-    // targets fan out around the screen's own centre (not the card), so the
-    // scatter always uses the full viewport no matter where the card sits
-    const cx = vw / 2, cy = headerH + (vh - headerH) / 2;
-    const spread = Math.min(vw, vh - headerH) * 0.66;
-    const baseAngle = Math.random() * Math.PI * 2;
+    const photoW = photoWidthFor(vw), photoH = photoW * 4 / 3;
+    // padded generously so a rotated photo's (larger) bounding box still clears the edge
+    const halfW = photoW / 2 * 1.3 + 12, halfH = photoH / 2 * 1.3 + 12;
 
+    const cardCx = rect.left + rect.width / 2;
+    const cardCy = rect.top + rect.height / 2;
+    // deterministic rule, not chance: fan downward when the card sits in the
+    // upper part of the viewport (so the fan has room to open), upward otherwise
+    const faceDown = rect.top < vh * 0.42;
+
+    // on narrow screens the full fan may simply be wider/taller than the
+    // viewport; shrink it (uniformly, around the card) just enough to fit
+    // before placing it, rather than letting it spill off either edge
+    const dxs = layout.map(s => s.dx), dys = layout.map(s => s.dy);
+    const spanDx = Math.max(...dxs) - Math.min(...dxs) || 1;
+    const spanDy = Math.max(...dys) - Math.min(...dys) || 1;
+    const scaleX = Math.min(1, (vw - 2 * halfW) / (spanDx * photoW));
+    const scaleY = Math.min(1, (vh - headerH - halfH) / (spanDy * photoH));
+    const scale = Math.max(0.4, Math.min(scaleX, scaleY));
+
+    // viewport-space target for each slot, from the fixed layout
+    const viewportTargets = layout.map(slot => ({
+      vx: cardCx + slot.dx * photoW * scale,
+      vy: cardCy + (faceDown ? -slot.dy : slot.dy) * photoH * scale,
+      rot: slot.rot,
+    }));
+
+    // shift the whole fan uniformly (shape stays intact) if it would spill off-screen
+    const minVX = Math.min(...viewportTargets.map(t => t.vx)) - halfW;
+    const maxVX = Math.max(...viewportTargets.map(t => t.vx)) + halfW;
+    let shiftX = 0;
+    if (minVX < 0) shiftX = -minVX;
+    else if (maxVX > vw) shiftX = vw - maxVX;
+
+    const minVY = Math.min(...viewportTargets.map(t => t.vy)) - halfH;
+    const maxVY = Math.max(...viewportTargets.map(t => t.vy)) + halfH;
+    let shiftY = 0;
+    if (minVY < headerH) shiftY = headerH - minVY;
+    else if (maxVY > vh) shiftY = vh - maxVY;
+
+    const ox = cardCx + scrollX, oy = cardCy + scrollY;
     const els = files.map((file, i) => {
-      const angle = baseAngle + (i / files.length) * Math.PI * 2 + (Math.random() * 0.5 - 0.25);
-      const dist = spread * (0.5 + Math.random() * 0.65);
-      const tx = Math.max(minX, Math.min(maxX, cx + Math.cos(angle) * dist));
-      const ty = Math.max(minY, Math.min(maxY, cy + Math.sin(angle) * dist));
+      const t = viewportTargets[i];
+      const tx = t.vx + shiftX + scrollX;
+      const ty = t.vy + shiftY + scrollY;
 
       const img = document.createElement('img');
       img.src = file;
@@ -808,9 +847,9 @@
       img.style.setProperty('--oy', oy + 'px');
       img.style.setProperty('--tx', tx + 'px');
       img.style.setProperty('--ty', ty + 'px');
-      img.style.setProperty('--sr', (Math.random() * 18 - 9).toFixed(1) + 'deg');
-      img.style.setProperty('--sd', (i * 0.045) + 's');
-      splash.overlay.appendChild(img);
+      img.style.setProperty('--sr', t.rot + 'deg');
+      img.style.setProperty('--sd', (i * 0.05) + 's');
+      splash.stage.appendChild(img);
       return img;
     });
 
@@ -822,7 +861,7 @@
     splash.overlay.classList.remove('open');
     splash.overlay.setAttribute('aria-hidden', 'true');
     postcards.forEach(c => c.classList.remove('flipped'));
-    const photos = splash.overlay.querySelectorAll('.splash-photo');
+    const photos = splash.stage.querySelectorAll('.splash-photo');
     photos.forEach(el => el.classList.remove('burst'));
     setTimeout(() => photos.forEach(el => el.remove()), 650);
   }
