@@ -259,46 +259,26 @@
     pointer-events:none; transition:background .5s var(--ease-out);
   }
   .splash-overlay.open{background:rgba(9,18,14,.5);}
-  .splash-stage{position:absolute; top:0; left:0; width:100%; z-index:91; pointer-events:none;}
+  .splash-stage{position:absolute; top:0; left:0; width:100%; height:0; z-index:91; pointer-events:none;}
   .splash-photo{
-    position:absolute; top:0; left:0; width:150px; aspect-ratio:3/4; object-fit:cover;
-    border:6px solid var(--cream); box-shadow:0 18px 40px rgba(0,0,0,.4); border-radius:2px;
-    opacity:0; pointer-events:none; will-change:transform, opacity;
-    transform:translate(var(--ox),var(--oy)) translate(-50%,-50%) scale(.2) rotate(0deg);
-    transition:transform .65s cubic-bezier(.22,.9,.3,1), opacity .3s linear;
+    position:absolute; top:0; left:0; aspect-ratio:3/4; object-fit:cover;
+    border:5px solid var(--cream); box-shadow:0 14px 32px rgba(0,0,0,.36); border-radius:2px;
+    opacity:0; pointer-events:none; will-change:transform;
+    transform:translate(var(--ox),var(--oy)) translate(-50%,-50%) rotate(0deg) scale(.9);
+    transition:transform .75s cubic-bezier(.2,.85,.25,1), opacity 0s linear;
     transition-delay:var(--sd,0s);
   }
-  .splash-photo.burst{
+  .splash-photo.out{
     opacity:1;
-    transform:translate(var(--tx),var(--ty)) translate(-50%,-50%) scale(1) rotate(var(--sr,0deg));
+    transform:translate(var(--tx),var(--ty)) translate(-50%,-50%) rotate(var(--sr,0deg)) scale(1);
+  }
+  .splash-photo.back{
+    opacity:0;
+    transition:transform .42s cubic-bezier(.55,0,.8,.25), opacity 0s linear;
+    transition-delay:var(--bd,0s), calc(var(--bd,0s) + .42s);
   }
   .postcard.flipped{position:relative; z-index:95;}
 
-  /* ---------- deux ambiances / menu ---------- */
-  .ambiances{padding-block:var(--section-pad); background:var(--cream);}
-  .amb-tabs{display:flex; gap:var(--space-md); margin-bottom:var(--space-xl); border-bottom:1px solid var(--forest-line);}
-  .amb-tab{
-    background:none; border:none; font-family:'Prata',serif; font-size:var(--fs-md); color:var(--forest-soft);
-    padding-bottom:14px; cursor:pointer; position:relative; opacity:.55; transition:opacity .3s;
-  }
-  .amb-tab.active{opacity:1; color:var(--forest);}
-  .amb-tab::after{content:""; position:absolute; left:0; right:0; bottom:-1px; height:2px; background:var(--terracotta); transform:scaleX(0); transition:transform .35s var(--ease-out);}
-  .amb-tab.active::after{transform:scaleX(1);}
-  .amb-panel{display:none; grid-template-columns:0.9fr 1.1fr; gap:clamp(28px,5vw,64px); align-items:center;}
-  .amb-panel.active{display:grid;}
-  .amb-panel img{width:100%; aspect-ratio:4/5; object-fit:cover; border-radius:4px;}
-  .amb-panel .tag{font-size:var(--fs-xs); letter-spacing:0.2em; text-transform:uppercase; color:var(--terracotta); font-weight:700;}
-  .amb-panel h3{font-size:var(--fs-lg); margin-top:10px;}
-  .amb-panel .lead{margin-top:14px; color:var(--forest-soft); max-width:48ch;}
-  .menu-list{margin-top:var(--space-lg); display:flex; flex-direction:column;}
-  .menu-list li{
-    list-style:none; display:flex; justify-content:space-between; gap:16px;
-    padding-block:16px; border-bottom:1px solid var(--forest-line);
-  }
-  .menu-list li .name{font-weight:600;}
-  .menu-list li .note{display:block; font-size:0.88rem; color:var(--forest-soft); font-weight:400; margin-top:3px;}
-  .menu-list li .price{font-family:'Prata',serif; color:var(--terracotta); white-space:nowrap;}
-  .menu-note{margin-top:var(--space-lg); font-size:0.92rem; color:var(--forest-soft); font-style:italic;}
 
   /* ---------- terrasse ---------- */
   .terrasse{padding-block:var(--section-pad); background:var(--forest); color:var(--cream); overflow:hidden;}
@@ -375,8 +355,7 @@
     #nav-toggle:checked ~ .burger span:nth-child(1){transform:translateY(7px) rotate(45deg);}
     #nav-toggle:checked ~ .burger span:nth-child(2){opacity:0;}
     #nav-toggle:checked ~ .burger span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
-    .manifesto .grid, .terrasse .grid, .reserve .grid, .amb-panel{grid-template-columns:1fr;}
-    .amb-panel img{aspect-ratio:16/10;}
+    .manifesto .grid, .terrasse .grid, .reserve .grid{grid-template-columns:1fr;}
     .shoppe-grid{grid-template-columns:1fr;}
     .foot-grid{grid-template-columns:1fr; gap:var(--space-lg);}
 
@@ -388,9 +367,7 @@
     .postcard{transform:none;}
     .postcard:hover{transform:translateY(-4px);}
     .postcard.flipped{transform:scale(1.04);}
-    .splash-photo{width:clamp(110px,30vw,170px);}
     .reserve .infos{margin-top:var(--space-lg); gap:10px;}
-    .menu-list li{padding-block:12px;}
     .terrasse .imgs{height:260px;}
     .marquee{padding:10px 0;}
     footer{padding-block:var(--space-xl) var(--space-md);}
@@ -407,7 +384,6 @@
 
   <nav class="links">
     <a href="#univers">Univers</a>
-    <a href="#carte">Carte</a>
     <a href="#terrasse">Terrasse</a>
     <a href="#boutique">Boutique</a>
     <a href="#evenements">Événements</a>
@@ -576,53 +552,6 @@
     </div>
   </section>
 
-  <section class="ambiances" id="carte">
-    <div class="container">
-      <div class="section-head reveal">
-        <p class="eyebrow">La carte</p>
-        <h2>Le jour, on est cool.<br>Le soir, on se pose.</h2>
-        <p>Deux ambiances, deux cartes. Pas de commande en ligne : on vous sert à table, comme il se doit.</p>
-      </div>
-
-      <div class="amb-tabs">
-        <button class="amb-tab active" data-tab="jour">Journée</button>
-        <button class="amb-tab" data-tab="soir">Soir bistronomique</button>
-      </div>
-
-      <div class="amb-panel active" id="panel-jour">
-        <img src="menu-jour.jpg" alt="Assiette de brunch, œuf poché et légumes de saison">
-        <div>
-          <span class="tag">10h – 18h</span>
-          <h3>Carte du jour</h3>
-          <p class="lead">Simple, frais, généreux. On grignote, on prolonge le café, on refait le monde.</p>
-          <ul class="menu-list">
-            <li><span><span class="name">Œuf poché du potager</span><span class="note">légumes de saison, pain grillé maison</span></span><span class="price">12</span></li>
-            <li><span><span class="name">Bol du village</span><span class="note">céréales, granola maison, fruits frais</span></span><span class="price">9</span></li>
-            <li><span><span class="name">Tartine du comptoir traiteur</span><span class="note">selon l'arrivage du jour</span></span><span class="price">11</span></li>
-            <li><span><span class="name">Café ou thé, pâtisserie du jour</span><span class="note">à toute heure</span></span><span class="price">6</span></li>
-          </ul>
-          <p class="menu-note">Carte complète et suggestions du jour affichées en salle.</p>
-        </div>
-      </div>
-
-      <div class="amb-panel" id="panel-soir">
-        <img src="menu-soir.jpg" alt="Assiette bistronomique élégante du soir">
-        <div>
-          <span class="tag">18h – 22h</span>
-          <h3>Carte bistronomique</h3>
-          <p class="lead">Même convivialité, table dressée. Les recettes de saison, un verre choisi, et le temps de s'attarder.</p>
-          <ul class="menu-list">
-            <li><span><span class="name">Légumes du potager, façon bistronomique</span><span class="note">récolte du jour</span></span><span class="price">16</span></li>
-            <li><span><span class="name">Suggestion du chef</span><span class="note">selon arrivage et saison</span></span><span class="price">26</span></li>
-            <li><span><span class="name">Fromages &amp; charcuteries à partager</span><span class="note">planche pour la table</span></span><span class="price">19</span></li>
-            <li><span><span class="name">Dessert maison, huile &amp; épices du comptoir</span><span class="note">recette du village</span></span><span class="price">10</span></li>
-          </ul>
-          <p class="menu-note">Table d'hôte disponible sur réservation pour les groupes.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <section class="terrasse" id="terrasse">
     <div class="container grid">
       <div class="reveal">
@@ -718,7 +647,6 @@
         <h4>Explorer</h4>
         <ul>
           <li><a href="#univers">Les 9 univers</a></li>
-          <li><a href="#carte">La carte</a></li>
           <li><a href="#terrasse">Terrasse &amp; potager</a></li>
           <li><a href="#boutique">Boutique &amp; galerie</a></li>
         </ul>
@@ -759,136 +687,158 @@
   }, { threshold: 0.15 });
   document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 
-  const splash = {
-    overlay: document.getElementById('splash-overlay'),
-    stage: document.getElementById('splash-stage'),
-  };
+  const overlay = document.getElementById('splash-overlay');
+  const stage = document.getElementById('splash-stage');
   const postcards = document.querySelectorAll('.postcard');
 
-  // preload every gallery photo once, up front, so the burst never waits on the network
+  // preload every gallery photo up front so the reveal never waits on the network
   const preload = new Set();
   postcards.forEach(c => (c.dataset.gallery || '').split(',').forEach(f => { const t = f.trim(); if (t) preload.add(t); }));
   preload.forEach(src => { const im = new Image(); im.src = src; });
 
-  // Fixed, hand-placed fan layouts (never random): offsets in units of the
-  // photo's own width/height, drawn upward from the card like a spread hand
-  // of cards. Index 0 is the outer-left photo, last is the outer-right one.
-  const FAN_LAYOUTS = {
-    1: [{ dx: 0, dy: -0.72, rot: -3 }],
-    2: [{ dx: -0.62, dy: -0.55, rot: -10 }, { dx: 0.62, dy: -0.55, rot: 10 }],
-    3: [{ dx: -1.00, dy: -0.30, rot: -13 }, { dx: 0, dy: -0.68, rot: 0 }, { dx: 1.00, dy: -0.30, rot: 13 }],
-    4: [{ dx: -1.25, dy: -0.18, rot: -15 }, { dx: -0.42, dy: -0.58, rot: -6 }, { dx: 0.42, dy: -0.58, rot: 6 }, { dx: 1.25, dy: -0.18, rot: 15 }],
-    5: [{ dx: -1.50, dy: -0.08, rot: -16 }, { dx: -0.75, dy: -0.46, rot: -9 }, { dx: 0, dy: -0.62, rot: 0 }, { dx: 0.75, dy: -0.46, rot: 9 }, { dx: 1.50, dy: -0.08, rot: 16 }],
-  };
-  function photoWidthFor(vw){
-    return vw <= 920 ? Math.max(110, Math.min(170, vw * 0.30)) : 150;
+  // Photos fan out from behind the card like a hand of cards: each one slides
+  // along a fixed ray from the card's centre, with its base staying tucked
+  // just behind the card's edge. Total opening angle per photo count:
+  const FAN_SPREAD = { 1: 0, 2: 36, 3: 66, 4: 93, 5: 116 };
+  const DEG = Math.PI / 180;
+
+  // Deterministic search for the best fan that fits on screen: biggest
+  // photos first, then the smallest tilt toward the screen centre, then the
+  // side of the card with the most room.
+  function computeFan(rect, n){
+    const vw = innerWidth, vh = innerHeight, pad = 10;
+    const topLimit = header.getBoundingClientRect().bottom + 8;
+    const cx = rect.left + rect.width / 2, cy = rect.top + rect.height / 2;
+    const basePW = Math.max(84, Math.min(160, rect.width * 0.62));
+    const spread = FAN_SPREAD[n] * DEG;
+    const preferUp = (cy - topLimit) >= (vh - cy);
+    const sign = cx <= vw / 2 ? 1 : -1;
+
+    const build = (k, up, tiltDeg, spreadF, check) => {
+      const pW = basePW * k, pH = pW * 4 / 3;
+      const sp = spread * spreadF;
+      // keep a constant gap between neighbouring photos: a narrower fan
+      // simply sits further out from the card instead of bunching up
+      const R = Math.max(rect.height / 2 + pH * 0.44, n > 1 ? pW * 0.8 * (n - 1) / sp : 0);
+      const t = sign * tiltDeg * DEG;
+      const slots = [];
+      for (let i = 0; i < n; i++) {
+        const a = t + (n === 1 ? 0 : -sp / 2 + i * sp / (n - 1));
+        const x = cx + R * Math.sin(a);
+        const y = cy + (up ? -1 : 1) * R * Math.cos(a);
+        const rot = (up ? 1 : -1) * a * 0.6;
+        const c = Math.abs(Math.cos(rot)), s = Math.abs(Math.sin(rot));
+        const hx = (pW * c + pH * s) / 2 + 6, hy = (pW * s + pH * c) / 2 + 6;
+        if (check && (x - hx < pad || x + hx > vw - pad || y - hy < topLimit || y + hy > vh - pad)) return null;
+        slots.push({ x, y, rot, hx, hy });
+      }
+      return { pW, slots };
+    };
+
+    let best = null;
+    for (let step = 0; step <= 8; step++) {
+      const k = 1 - step * 0.05;
+      for (const spreadF of [1, 0.85, 0.7, 0.58, 0.48]) {
+        for (const up of [true, false]) {
+          for (let tilt = 0; tilt <= 60; tilt += 6) {
+            const cost = (1 - k) * 120 + (1 - spreadF) * 30 + tilt * 0.5 + (up === preferUp ? 0 : 20);
+            if (best && cost >= best.cost) continue;
+            const fan = build(k, up, tilt, spreadF, true);
+            if (fan) best = { cost, ...fan };
+          }
+        }
+      }
+    }
+    if (best) return best;
+
+    // nothing fits cleanly (tiny screens): smallest fan, nudged on screen
+    const fan = build(0.6, preferUp, 24, 0.6, false);
+    fan.slots.forEach(sl => {
+      sl.x = Math.min(Math.max(sl.x, pad + sl.hx), vw - pad - sl.hx);
+      sl.y = Math.min(Math.max(sl.y, topLimit + sl.hy), vh - pad - sl.hy);
+    });
+    return fan;
   }
 
-  function openSplash(card){
-    splash.stage.querySelectorAll('.splash-photo').forEach(el => el.remove());
+  let current = null;
+
+  function openCard(card){
+    if (card._closing) {
+      clearTimeout(card._closing.timer);
+      card._closing.photos.forEach(p => p.remove());
+      card._closing = null;
+    }
     const files = (card.dataset.gallery || '').split(',').map(f => f.trim()).filter(Boolean).slice(0, 5);
-    const layout = FAN_LAYOUTS[files.length] || FAN_LAYOUTS[5];
-
     const rect = card.getBoundingClientRect();
-    const scrollX = window.scrollX, scrollY = window.scrollY;
-    const vw = innerWidth, vh = innerHeight;
-    const headerH = 88;
-    const photoW = photoWidthFor(vw), photoH = photoW * 4 / 3;
-    // padded generously so a rotated photo's (larger) bounding box still clears the edge
-    const halfW = photoW / 2 * 1.3 + 12, halfH = photoH / 2 * 1.3 + 12;
+    const fan = computeFan(rect, files.length);
+    const ox = rect.left + rect.width / 2 + scrollX, oy = rect.top + rect.height / 2 + scrollY;
+    const mid = (files.length - 1) / 2;
 
-    const cardCx = rect.left + rect.width / 2;
-    const cardCy = rect.top + rect.height / 2;
-    // deterministic rule, not chance: fan downward when the card sits in the
-    // upper part of the viewport (so the fan has room to open), upward otherwise
-    const faceDown = rect.top < vh * 0.42;
-
-    // on narrow screens the full fan may simply be wider/taller than the
-    // viewport; shrink it (uniformly, around the card) just enough to fit
-    // before placing it, rather than letting it spill off either edge
-    const dxs = layout.map(s => s.dx), dys = layout.map(s => s.dy);
-    const spanDx = Math.max(...dxs) - Math.min(...dxs) || 1;
-    const spanDy = Math.max(...dys) - Math.min(...dys) || 1;
-    const scaleX = Math.min(1, (vw - 2 * halfW) / (spanDx * photoW));
-    const scaleY = Math.min(1, (vh - headerH - halfH) / (spanDy * photoH));
-    const scale = Math.max(0.4, Math.min(scaleX, scaleY));
-
-    // viewport-space target for each slot, from the fixed layout
-    const viewportTargets = layout.map(slot => ({
-      vx: cardCx + slot.dx * photoW * scale,
-      vy: cardCy + (faceDown ? -slot.dy : slot.dy) * photoH * scale,
-      rot: slot.rot,
-    }));
-
-    // shift the whole fan uniformly (shape stays intact) if it would spill off-screen
-    const minVX = Math.min(...viewportTargets.map(t => t.vx)) - halfW;
-    const maxVX = Math.max(...viewportTargets.map(t => t.vx)) + halfW;
-    let shiftX = 0;
-    if (minVX < 0) shiftX = -minVX;
-    else if (maxVX > vw) shiftX = vw - maxVX;
-
-    const minVY = Math.min(...viewportTargets.map(t => t.vy)) - halfH;
-    const maxVY = Math.max(...viewportTargets.map(t => t.vy)) + halfH;
-    let shiftY = 0;
-    if (minVY < headerH) shiftY = headerH - minVY;
-    else if (maxVY > vh) shiftY = vh - maxVY;
-
-    const ox = cardCx + scrollX, oy = cardCy + scrollY;
-    const els = files.map((file, i) => {
-      const t = viewportTargets[i];
-      const tx = t.vx + shiftX + scrollX;
-      const ty = t.vy + shiftY + scrollY;
-
+    card.classList.add('flipped');
+    const photos = files.map((file, i) => {
+      const sl = fan.slots[i];
+      const rank = Math.abs(i - mid);
       const img = document.createElement('img');
       img.src = file;
       img.alt = '';
       img.className = 'splash-photo';
+      img.style.width = fan.pW + 'px';
       img.style.setProperty('--ox', ox + 'px');
       img.style.setProperty('--oy', oy + 'px');
-      img.style.setProperty('--tx', tx + 'px');
-      img.style.setProperty('--ty', ty + 'px');
-      img.style.setProperty('--sr', t.rot + 'deg');
-      img.style.setProperty('--sd', (i * 0.05) + 's');
-      splash.stage.appendChild(img);
+      img.style.setProperty('--tx', (sl.x + scrollX) + 'px');
+      img.style.setProperty('--ty', (sl.y + scrollY) + 'px');
+      img.style.setProperty('--sr', (sl.rot / DEG) + 'deg');
+      // wait until the card has mostly turned over, then pull photos out centre-first
+      img.style.setProperty('--sd', (0.24 + rank * 0.07) + 's');
+      img.style.setProperty('--bd', ((mid - rank) * 0.05) + 's');
+      stage.appendChild(img);
       return img;
     });
 
-    splash.overlay.classList.add('open');
-    splash.overlay.setAttribute('aria-hidden', 'false');
-    requestAnimationFrame(() => requestAnimationFrame(() => els.forEach(el => el.classList.add('burst'))));
+    overlay.classList.add('open');
+    requestAnimationFrame(() => requestAnimationFrame(() => photos.forEach(p => p.classList.add('out'))));
+    return { card, photos, back: mid * 0.05 + 0.42 };
   }
-  function closeSplash(){
-    splash.overlay.classList.remove('open');
-    splash.overlay.setAttribute('aria-hidden', 'true');
-    postcards.forEach(c => c.classList.remove('flipped'));
-    const photos = splash.stage.querySelectorAll('.splash-photo');
-    photos.forEach(el => el.classList.remove('burst'));
-    setTimeout(() => photos.forEach(el => el.remove()), 650);
+
+  function closeCard(state, keepOverlay){
+    if (!state) return;
+    if (!keepOverlay) overlay.classList.remove('open');
+    state.photos.forEach(p => { p.classList.remove('out'); p.classList.add('back'); });
+    // photos slide back behind the card first, then the card turns back over
+    state.timer = setTimeout(() => {
+      state.card.classList.remove('flipped');
+      state.photos.forEach(p => p.remove());
+      state.card._closing = null;
+    }, state.back * 1000);
+    state.card._closing = state;
   }
-  addEventListener('click', (e) => {
-    if (!splash.overlay.classList.contains('open')) return;
-    if (e.target.closest('.postcard')) return;
-    closeSplash();
-  });
-  addEventListener('keydown', (e) => { if (e.key === 'Escape') closeSplash(); });
 
   postcards.forEach(card => {
     card.addEventListener('click', () => {
-      const wasFlipped = card.classList.contains('flipped');
-      if (wasFlipped) { closeSplash(); return; }
-      postcards.forEach(c => c.classList.remove('flipped'));
-      card.classList.add('flipped');
-      openSplash(card);
+      if (current && current.card === card) { closeCard(current); current = null; return; }
+      if (current) closeCard(current, true);
+      const r = card.getBoundingClientRect();
+      const top = header.getBoundingClientRect().bottom + 12;
+      const delta = r.top < top ? r.top - top : (r.bottom > innerHeight - 12 ? Math.min(r.bottom - innerHeight + 12, r.top - top) : 0);
+      if (Math.abs(delta) < 4) { current = openCard(card); return; }
+      scrollBy({ top: delta, behavior: 'smooth' });
+      const pending = { card, photos: [], back: 0 };
+      current = pending;
+      setTimeout(() => { if (current === pending) current = openCard(card); }, 380);
     });
   });
-
-  document.querySelectorAll('.amb-tab').forEach(tab => {
-    tab.addEventListener('click', () => {
-      document.querySelectorAll('.amb-tab').forEach(t => t.classList.remove('active'));
-      document.querySelectorAll('.amb-panel').forEach(p => p.classList.remove('active'));
-      tab.classList.add('active');
-      document.getElementById('panel-' + tab.dataset.tab).classList.add('active');
-    });
+  addEventListener('click', (e) => {
+    if (!current || e.target.closest('.postcard')) return;
+    closeCard(current); current = null;
+  });
+  addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && current) { closeCard(current); current = null; }
+  });
+  let lastW = innerWidth;
+  addEventListener('resize', () => {
+    if (innerWidth === lastW) return;
+    lastW = innerWidth;
+    if (current) { closeCard(current); current = null; }
   });
 </script>
 
