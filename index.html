@@ -242,47 +242,25 @@
   .pc-back p{margin-top:8px; font-size:0.85rem; line-height:1.5; color:var(--forest-soft);}
   .pc-back .btn{margin-top:auto; align-self:flex-start; padding:9px 18px; font-size:0.72rem;}
 
-  /* ---------- splash overlay (photo reveal) ---------- */
+  /* ---------- splash burst (photos fly out of the clicked card) ---------- */
   .splash-overlay{
-    position:fixed; inset:0; z-index:200; overflow:hidden;
-    background:color-mix(in oklch, var(--forest-deep) 94%, black 6%);
-    opacity:0; pointer-events:none; transition:opacity .4s var(--ease-out);
-    display:flex; align-items:flex-end; justify-content:center;
+    position:fixed; inset:0; z-index:90; background:rgba(9,18,14,0);
+    pointer-events:none; transition:background .5s var(--ease-out);
   }
-  .splash-overlay.open{opacity:1; pointer-events:auto;}
-  .splash-stage{position:absolute; inset:0;}
+  .splash-overlay.open{background:rgba(9,18,14,.5);}
   .splash-photo{
-    position:absolute; top:var(--ty,50%); left:var(--tx,50%);
-    width:clamp(130px,20vw,220px); aspect-ratio:3/4; object-fit:cover;
-    border:7px solid var(--cream); box-shadow:0 20px 45px rgba(0,0,0,.45); border-radius:2px;
-    transform:translate(-50%,-50%) scale(.25) rotate(0deg); opacity:0;
-    transition:transform .7s var(--ease-out), opacity .5s var(--ease-out);
+    position:fixed; top:0; left:0; width:150px; aspect-ratio:3/4; object-fit:cover;
+    border:6px solid var(--cream); box-shadow:0 18px 40px rgba(0,0,0,.4); border-radius:2px;
+    opacity:0; pointer-events:none; will-change:transform, opacity;
+    transform:translate(var(--ox),var(--oy)) translate(-50%,-50%) scale(.2) rotate(0deg);
+    transition:transform .65s cubic-bezier(.22,.9,.3,1), opacity .3s linear;
     transition-delay:var(--sd,0s);
   }
-  .splash-overlay.open .splash-photo{transform:translate(-50%,-50%) scale(1) rotate(var(--sr,0deg)); opacity:1;}
-  .splash-photo.coming-soon{
-    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px;
-    background:var(--cream); color:var(--forest-soft); text-align:center; padding:14px;
-    font-size:0.78rem; letter-spacing:0.02em;
+  .splash-photo.burst{
+    opacity:1;
+    transform:translate(var(--tx),var(--ty)) translate(-50%,-50%) scale(1) rotate(var(--sr,0deg));
   }
-  .splash-close{
-    position:absolute; top:20px; right:20px; z-index:2; width:42px; height:42px; border-radius:50%;
-    border:1px solid color-mix(in oklch, var(--cream) 45%, transparent); background:transparent; color:var(--cream);
-    font-size:1.5rem; line-height:1; cursor:pointer; display:flex; align-items:center; justify-content:center;
-    transition:background .3s var(--ease-out);
-  }
-  .splash-close:hover{background:color-mix(in oklch, var(--cream) 15%, transparent);}
-  .splash-info{
-    position:relative; z-index:2; text-align:center; color:var(--cream);
-    padding:0 24px var(--space-xl); max-width:520px;
-    opacity:0; transform:translateY(16px);
-    transition:opacity .5s var(--ease-out) .3s, transform .5s var(--ease-out) .3s;
-  }
-  .splash-overlay.open .splash-info{opacity:1; transform:translateY(0);}
-  .splash-info .n{font-size:var(--fs-xs); letter-spacing:0.2em; color:var(--gold); font-weight:700;}
-  .splash-info h3{font-size:var(--fs-lg); color:var(--cream); margin-top:8px;}
-  .splash-info p{margin-top:10px; color:color-mix(in oklch, var(--cream) 85%, transparent);}
-  .splash-info .btn{margin-top:16px;}
+  .postcard.flipped{position:relative; z-index:95;}
 
   /* ---------- deux ambiances / menu ---------- */
   .ambiances{padding-block:var(--section-pad); background:var(--cream);}
@@ -397,7 +375,7 @@
     .postcards{grid-template-columns:repeat(2,1fr); gap:18px;}
     .postcard{transform:none;}
     .postcard:hover{transform:translateY(-4px);}
-    .postcard.flipped{transform:scale(1.04); z-index:5;}
+    .postcard.flipped{transform:scale(1.04);}
     .splash-photo{width:clamp(110px,30vw,170px);}
     .reserve .infos{margin-top:var(--space-lg); gap:10px;}
     .menu-list li{padding-block:12px;}
@@ -433,7 +411,7 @@
     <div class="content">
       <img src="logo-light.png" alt="Café Village" class="badge badge-mark">
       <h1>Le goût<br>du partage</h1>
-      <p class="sub">Un café-restaurant à Waterloo où trois générations se croisent — sans horaires figés, sans chichis, avec beaucoup de vie.</p>
+      <p class="sub">Un café-restaurant à Waterloo où trois générations se croisent, sans horaires figés, sans chichis, avec beaucoup de vie.</p>
       <div class="cta-row">
         <a href="#reserver" class="btn btn-solid">Réserver une table</a>
         <a href="#univers" class="btn btn-line on-dark">Découvrir les 9 univers</a>
@@ -462,7 +440,7 @@
       <div class="reveal">
         <p class="eyebrow">Notre philosophie</p>
         <blockquote>Ici, <em>pas de règles</em>. Juste l'envie de rester.</blockquote>
-        <p class="desc">Café Village n'est pas un restaurant qu'on traverse — c'est un endroit où on s'installe. Les grands-parents y retrouvent leurs habitudes, les enfants leur coin à eux, les copains leur apéro du jeudi. Une seule adresse, neuf ambiances, et beaucoup, beaucoup de vie.</p>
+        <p class="desc">Café Village n'est pas un restaurant qu'on traverse : c'est un endroit où on s'installe. Les grands-parents y retrouvent leurs habitudes, les enfants leur coin à eux, les copains leur apéro du jeudi. Une seule adresse, neuf ambiances, et beaucoup, beaucoup de vie.</p>
       </div>
       <div class="photo-wrap reveal reveal-delay-2">
         <div class="ring"></div>
@@ -476,7 +454,7 @@
       <div class="section-head reveal">
         <p class="eyebrow">Les 9 univers</p>
         <h2>Neuf cartes postales, une par univers</h2>
-        <p>Touchez une carte pour la retourner — et voir les photos de l'endroit s'étaler à l'écran.</p>
+        <p>Touchez une carte pour la retourner et voir ses photos s'étaler à l'écran.</p>
       </div>
 
       <div class="postcards">
@@ -487,7 +465,6 @@
               <span class="pc-stamp"><svg viewBox="0 0 40 40"><rect x="2" y="2" width="36" height="36" rx="2" fill="none" stroke="currentColor" stroke-width="1.4" stroke-dasharray="3 2"/><g stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"><ellipse cx="24" cy="20" rx="5" ry="3.6" transform="rotate(20 24 20)"/><line x1="20" y1="18" x2="12" y2="14"/></g></svg></span>
               <span class="n">01</span><h3>Orient Express</h3>
               <p>Banquettes capitonnées, cuivres et velours : embarquement immédiat pour un dîner qui a du panache.</p>
-              <a class="btn btn-line" href="#carte">Voir la carte</a>
             </span>
           </span>
         </button>
@@ -504,14 +481,13 @@
           </span>
         </button>
 
-        <button class="postcard" style="--tilt:-4deg" data-gallery="bar-room.jpg">
+        <button class="postcard" style="--tilt:-4deg" data-gallery="bar-room.jpg,bar-room-2.jpg,bar-room-3.jpg,bar-room-4.jpg,bar-room-5.jpg">
           <span class="pc-inner">
             <span class="pc-front"><img src="bar-room.jpg" alt="Le Bar"><span class="pc-caption"><span class="name">Le Bar</span><span class="n">03</span></span></span>
             <span class="pc-back">
               <span class="pc-stamp"><svg viewBox="0 0 40 40"><rect x="2" y="2" width="36" height="36" rx="2" fill="none" stroke="currentColor" stroke-width="1.4" stroke-dasharray="3 2"/><g stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"><ellipse cx="24" cy="20" rx="5" ry="3.6" transform="rotate(20 24 20)"/><line x1="20" y1="18" x2="12" y2="14"/></g></svg></span>
               <span class="n">03</span><h3>Le Bar</h3>
               <p>Banquette verte, lumière basse : la salle pour un verre entre amis, sans regarder l'heure.</p>
-              <a class="btn btn-line" href="#carte">Voir la carte</a>
             </span>
           </span>
         </button>
@@ -523,7 +499,6 @@
               <span class="pc-stamp"><svg viewBox="0 0 40 40"><rect x="2" y="2" width="36" height="36" rx="2" fill="none" stroke="currentColor" stroke-width="1.4" stroke-dasharray="3 2"/><g stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"><ellipse cx="24" cy="20" rx="5" ry="3.6" transform="rotate(20 24 20)"/><line x1="20" y1="18" x2="12" y2="14"/></g></svg></span>
               <span class="n">04</span><h3>Coin des Petits</h3>
               <p>Pendant que les grands discutent, les petits ont leur repaire : livres, jeux et coussins.</p>
-              <a class="btn btn-line" href="#carte">Voir la carte</a>
             </span>
           </span>
         </button>
@@ -546,8 +521,7 @@
             <span class="pc-back">
               <span class="pc-stamp"><svg viewBox="0 0 40 40"><rect x="2" y="2" width="36" height="36" rx="2" fill="none" stroke="currentColor" stroke-width="1.4" stroke-dasharray="3 2"/><g stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"><ellipse cx="24" cy="20" rx="5" ry="3.6" transform="rotate(20 24 20)"/><line x1="20" y1="18" x2="12" y2="14"/></g></svg></span>
               <span class="n">06</span><h3>Salle de Billard</h3>
-              <p>Un dernier café, une partie de billard — et personne ne veut plus rentrer.</p>
-              <a class="btn btn-line" href="#carte">Voir la carte</a>
+              <p>Un dernier café, une partie de billard, et personne ne veut plus rentrer.</p>
             </span>
           </span>
         </button>
@@ -564,9 +538,9 @@
           </span>
         </button>
 
-        <button class="postcard" style="--tilt:2deg" data-gallery="boutique.jpg,boutique-2.jpg">
+        <button class="postcard" style="--tilt:2deg" data-gallery="coming-soon.png">
           <span class="pc-inner">
-            <span class="pc-front"><img src="boutique.jpg" alt="Comptoir Cadeaux"><span class="pc-caption"><span class="name">Comptoir Cadeaux</span><span class="n">08</span></span></span>
+            <span class="pc-front"><img src="coming-soon.png" alt="Comptoir Cadeaux"><span class="pc-caption"><span class="name">Comptoir Cadeaux</span><span class="n">08</span></span></span>
             <span class="pc-back">
               <span class="pc-stamp"><svg viewBox="0 0 40 40"><rect x="2" y="2" width="36" height="36" rx="2" fill="none" stroke="currentColor" stroke-width="1.4" stroke-dasharray="3 2"/><g stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"><ellipse cx="24" cy="20" rx="5" ry="3.6" transform="rotate(20 24 20)"/><line x1="20" y1="18" x2="12" y2="14"/></g></svg></span>
               <span class="n">08</span><h3>Comptoir Cadeaux</h3>
@@ -576,9 +550,9 @@
           </span>
         </button>
 
-        <button class="postcard" style="--tilt:-5deg" data-gallery="galerie.jpg,galerie-2.jpg,galerie-3.jpg,galerie-4.jpg,galerie-5.jpg">
+        <button class="postcard" style="--tilt:-5deg" data-gallery="coming-soon.png">
           <span class="pc-inner">
-            <span class="pc-front"><img src="galerie.jpg" alt="La Galerie"><span class="pc-caption"><span class="name">La Galerie</span><span class="n">09</span></span></span>
+            <span class="pc-front"><img src="coming-soon.png" alt="La Galerie"><span class="pc-caption"><span class="name">La Galerie</span><span class="n">09</span></span></span>
             <span class="pc-back">
               <span class="pc-stamp"><svg viewBox="0 0 40 40"><rect x="2" y="2" width="36" height="36" rx="2" fill="none" stroke="currentColor" stroke-width="1.4" stroke-dasharray="3 2"/><g stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"><ellipse cx="24" cy="20" rx="5" ry="3.6" transform="rotate(20 24 20)"/><line x1="20" y1="18" x2="12" y2="14"/></g></svg></span>
               <span class="n">09</span><h3>La Galerie</h3>
@@ -596,7 +570,7 @@
       <div class="section-head reveal">
         <p class="eyebrow">La carte</p>
         <h2>Le jour, on est cool.<br>Le soir, on se pose.</h2>
-        <p>Deux ambiances, deux cartes. Pas de commande en ligne — on vous sert à table, comme il se doit.</p>
+        <p>Deux ambiances, deux cartes. Pas de commande en ligne : on vous sert à table, comme il se doit.</p>
       </div>
 
       <div class="amb-tabs">
@@ -644,9 +618,9 @@
         <div class="section-head">
           <p class="eyebrow">Dehors</p>
           <h2>La terrasse &amp; le potager</h2>
-          <p>Un coin de verdure en plein Waterloo — les légumes qui finissent dans l'assiette poussent à quelques mètres de la table.</p>
+          <p>Un coin de verdure en plein Waterloo : les légumes qui finissent dans l'assiette poussent à quelques mètres de la table.</p>
         </div>
-        <p class="body">Tomates, herbes et légumes de saison sont cultivés dans notre potager. On les récolte le matin, on les sert le midi — c'est aussi simple que ça.</p>
+        <p class="body">Tomates, herbes et légumes de saison sont cultivés dans notre potager. On les récolte le matin, on les sert le midi, c'est aussi simple que ça.</p>
       </div>
       <div class="imgs reveal reveal-delay-2">
         <img class="i1" src="terrace.jpg" alt="Terrasse ombragée de Café Village">
@@ -664,7 +638,7 @@
       </div>
       <div class="shoppe-grid">
         <div class="shoppe-card reveal">
-          <img src="boutique.jpg" alt="Bougies, huiles et idées cadeaux">
+          <img src="coming-soon.png" alt="Bougies, huiles et idées cadeaux">
           <div class="body">
             <h3>Le comptoir cadeaux</h3>
             <p>Bougies parfumées, huiles artisanales et petites attentions pour un anniversaire réussi.</p>
@@ -672,10 +646,10 @@
           </div>
         </div>
         <div class="shoppe-card reveal reveal-delay-1">
-          <img src="galerie.jpg" alt="Galerie d'objets et d'expositions locales">
+          <img src="coming-soon.png" alt="Galerie d'objets et d'expositions locales">
           <div class="body">
             <h3>La galerie</h3>
-            <p>Expositions d'artistes locaux et objets à emporter — la visite continue après le café.</p>
+            <p>Expositions d'artistes locaux et objets à emporter : la visite continue après le café.</p>
             <a href="#reserver" class="btn btn-line">En savoir plus</a>
           </div>
         </div>
@@ -701,7 +675,7 @@
       <div class="reveal">
         <p class="eyebrow" style="color:var(--gold)">Réservation</p>
         <h2>Une table vous attend</h2>
-        <p>Dites-nous quand vous venez — on garde la meilleure place.</p>
+        <p>Dites-nous quand vous venez, on garde la meilleure place.</p>
         <div class="infos">
           <div><strong>Adresse</strong>4 Allée des Artistes, Waterloo</div>
           <div><strong>Téléphone</strong><a href="tel:+3223569798">(02) 356 97 98</a></div>
@@ -755,16 +729,7 @@
   </div>
 </footer>
 
-<div class="splash-overlay" id="splash-overlay" aria-hidden="true">
-  <button class="splash-close" id="splash-close" type="button" aria-label="Fermer">&times;</button>
-  <div class="splash-stage" id="splash-stage"></div>
-  <div class="splash-info">
-    <span class="n" id="splash-num"></span>
-    <h3 id="splash-title"></h3>
-    <p id="splash-desc"></p>
-    <a class="btn btn-line on-dark" id="splash-link" href="#"></a>
-  </div>
-</div>
+<div class="splash-overlay" id="splash-overlay" aria-hidden="true"></div>
 
 <script>
   const header = document.getElementById('site-header');
@@ -782,78 +747,75 @@
   }, { threshold: 0.15 });
   document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 
-  const splash = {
-    overlay: document.getElementById('splash-overlay'),
-    stage: document.getElementById('splash-stage'),
-    num: document.getElementById('splash-num'),
-    title: document.getElementById('splash-title'),
-    desc: document.getElementById('splash-desc'),
-    link: document.getElementById('splash-link'),
-    close: document.getElementById('splash-close'),
-  };
-  const splashLayouts = {
-    1: [{x:'50%',y:'44%'}],
-    2: [{x:'34%',y:'38%'},{x:'66%',y:'56%'}],
-    3: [{x:'26%',y:'34%'},{x:'64%',y:'28%'},{x:'46%',y:'64%'}],
-    4: [{x:'22%',y:'32%'},{x:'70%',y:'26%'},{x:'30%',y:'66%'},{x:'74%',y:'62%'}],
-    5: [{x:'18%',y:'32%'},{x:'50%',y:'20%'},{x:'82%',y:'30%'},{x:'28%',y:'68%'},{x:'72%',y:'68%'}],
-  };
-  function openSplash(card){
-    const back = card.querySelector('.pc-back');
-    splash.num.textContent = back.querySelector('.n').textContent;
-    splash.title.textContent = back.querySelector('h3').textContent;
-    splash.desc.textContent = back.querySelector('p').textContent;
-    const a = back.querySelector('a');
-    splash.link.textContent = a.textContent;
-    splash.link.href = a.getAttribute('href');
+  const splash = { overlay: document.getElementById('splash-overlay') };
+  const postcards = document.querySelectorAll('.postcard');
 
+  // preload every gallery photo once, up front, so the burst never waits on the network
+  const preload = new Set();
+  postcards.forEach(c => (c.dataset.gallery || '').split(',').forEach(f => { const t = f.trim(); if (t) preload.add(t); }));
+  preload.forEach(src => { const im = new Image(); im.src = src; });
+
+  function openSplash(card){
+    splash.overlay.querySelectorAll('.splash-photo').forEach(el => el.remove());
     const files = (card.dataset.gallery || '').split(',').map(f => f.trim()).filter(Boolean).slice(0, 5);
-    splash.stage.innerHTML = '';
-    const spots = splashLayouts[files.length] || splashLayouts[5];
-    files.forEach((file, i) => {
-      const spot = spots[i % spots.length];
-      let el;
-      if (file === 'coming-soon') {
-        el = document.createElement('div');
-        el.innerHTML = '<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l1.5-2h7L17 8h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/><circle cx="12" cy="13" r="3.4"/></svg><span>Photo bientôt disponible</span>';
-      } else {
-        el = document.createElement('img');
-        el.src = file;
-        el.alt = '';
-      }
-      el.className = 'splash-photo' + (file === 'coming-soon' ? ' coming-soon' : '');
-      el.style.setProperty('--tx', spot.x);
-      el.style.setProperty('--ty', spot.y);
-      el.style.setProperty('--sr', (Math.random() * 16 - 8).toFixed(1) + 'deg');
-      el.style.setProperty('--sd', (i * 0.08) + 's');
-      splash.stage.appendChild(el);
+
+    const rect = card.getBoundingClientRect();
+    const ox = rect.left + rect.width / 2;
+    const oy = rect.top + rect.height / 2;
+    const vw = innerWidth, vh = innerHeight;
+    const photoW = Math.min(150, vw * 0.38);
+    const halfW = photoW / 2 + 14, halfH = (photoW * 4 / 3) / 2 + 14;
+    const minX = halfW, maxX = Math.max(halfW, vw - halfW);
+    const minY = 92 + halfH, maxY = Math.max(minY, vh - halfH);
+    const spread = Math.min(vw, vh) * 0.3;
+    const baseAngle = Math.random() * Math.PI * 2;
+
+    const els = files.map((file, i) => {
+      const angle = baseAngle + (i / files.length) * Math.PI * 2 + (Math.random() * 0.5 - 0.25);
+      const dist = spread * (0.6 + Math.random() * 0.55);
+      const tx = Math.max(minX, Math.min(maxX, ox + Math.cos(angle) * dist));
+      const ty = Math.max(minY, Math.min(maxY, oy + Math.sin(angle) * dist));
+
+      const img = document.createElement('img');
+      img.src = file;
+      img.alt = '';
+      img.className = 'splash-photo';
+      img.style.setProperty('--ox', ox + 'px');
+      img.style.setProperty('--oy', oy + 'px');
+      img.style.setProperty('--tx', tx + 'px');
+      img.style.setProperty('--ty', ty + 'px');
+      img.style.setProperty('--sr', (Math.random() * 18 - 9).toFixed(1) + 'deg');
+      img.style.setProperty('--sd', (i * 0.045) + 's');
+      splash.overlay.appendChild(img);
+      return img;
     });
 
     splash.overlay.classList.add('open');
     splash.overlay.setAttribute('aria-hidden', 'false');
-    document.body.style.overflow = 'hidden';
+    requestAnimationFrame(() => requestAnimationFrame(() => els.forEach(el => el.classList.add('burst'))));
   }
   function closeSplash(){
     splash.overlay.classList.remove('open');
     splash.overlay.setAttribute('aria-hidden', 'true');
-    document.body.style.overflow = '';
     postcards.forEach(c => c.classList.remove('flipped'));
+    const photos = splash.overlay.querySelectorAll('.splash-photo');
+    photos.forEach(el => el.classList.remove('burst'));
+    setTimeout(() => photos.forEach(el => el.remove()), 650);
   }
-  splash.close.addEventListener('click', closeSplash);
-  splash.overlay.addEventListener('click', (e) => { if (e.target === splash.overlay) closeSplash(); });
+  addEventListener('click', (e) => {
+    if (!splash.overlay.classList.contains('open')) return;
+    if (e.target.closest('.postcard')) return;
+    closeSplash();
+  });
   addEventListener('keydown', (e) => { if (e.key === 'Escape') closeSplash(); });
 
-  const postcards = document.querySelectorAll('.postcard');
   postcards.forEach(card => {
     card.addEventListener('click', () => {
       const wasFlipped = card.classList.contains('flipped');
+      if (wasFlipped) { closeSplash(); return; }
       postcards.forEach(c => c.classList.remove('flipped'));
-      if (!wasFlipped) {
-        card.classList.add('flipped');
-        openSplash(card);
-      } else {
-        closeSplash();
-      }
+      card.classList.add('flipped');
+      openSplash(card);
     });
   });
 
