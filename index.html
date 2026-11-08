@@ -231,6 +231,26 @@
   }
   .pc-caption .name{font-family:'Prata',serif; font-size:0.92rem; color:var(--forest); line-height:1.15;}
   .pc-caption .n{font-size:0.62rem; letter-spacing:0.14em; color:var(--terracotta); font-weight:700; white-space:nowrap;}
+
+  .pc-tap-hint{
+    position:absolute; right:10px; bottom:54px; z-index:3;
+    width:34px; height:34px; border-radius:50%;
+    background:color-mix(in oklch, var(--forest-deep) 70%, transparent);
+    display:flex; align-items:center; justify-content:center; color:var(--cream);
+    pointer-events:none; transition:opacity .25s;
+  }
+  .pc-tap-hint svg{width:15px; height:15px;}
+  .pc-tap-ring{
+    position:absolute; inset:-7px; border-radius:50%; border:1.5px solid var(--cream);
+    opacity:0; animation:tapPulse 2.4s ease-out infinite;
+  }
+  @keyframes tapPulse{
+    0%{transform:scale(.72); opacity:.85;}
+    75%{transform:scale(1.4); opacity:0;}
+    100%{opacity:0;}
+  }
+  .postcard.flipped .pc-tap-hint{opacity:0;}
+  .postcard:hover .pc-tap-hint,.postcard:focus-visible .pc-tap-hint{opacity:0;}
   .pc-back{
     background:var(--cream); border:1px solid var(--forest-line); transform:rotateY(180deg);
     padding:clamp(14px,2vw,22px); display:flex; flex-direction:column; text-align:left; overflow:hidden;
@@ -460,7 +480,7 @@
       <div class="postcards">
         <button class="postcard" style="--tilt:-3deg" data-gallery="orient-express.jpg,orient-express-2.jpg,orient-express-3.jpg,orient-express-4.jpg,orient-express-5.jpg">
           <span class="pc-inner">
-            <span class="pc-front"><img src="orient-express.jpg" alt="Orient Express"><span class="pc-caption"><span class="name">Orient Express</span><span class="n">01</span></span></span>
+            <span class="pc-front"><img src="orient-express.jpg" alt="Orient Express"><span class="pc-tap-hint" aria-hidden="true"><span class="pc-tap-ring"></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11.5V5a1.5 1.5 0 0 1 3 0v5.5"/><path d="M12 10.5V4a1.5 1.5 0 0 1 3 0v6.5"/><path d="M15 10.5V6a1.5 1.5 0 0 1 3 0v8c0 3.5-2 7-6.5 7-3 0-4-1-5.5-3L3.6 14a1.4 1.4 0 0 1 2-2L8 13.5"/></svg></span><span class="pc-caption"><span class="name">Orient Express</span><span class="n">01</span></span></span>
             <span class="pc-back">
               <span class="pc-stamp"><svg viewBox="0 0 40 40"><rect x="2" y="2" width="36" height="36" rx="2" fill="none" stroke="currentColor" stroke-width="1.4" stroke-dasharray="3 2"/><g stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"><ellipse cx="24" cy="20" rx="5" ry="3.6" transform="rotate(20 24 20)"/><line x1="20" y1="18" x2="12" y2="14"/></g></svg></span>
               <span class="n">01</span><h3>Orient Express</h3>
@@ -471,7 +491,7 @@
 
         <button class="postcard" style="--tilt:2deg" data-gallery="table-dhote.jpg,table-dhote-2.jpg,table-dhote-3.jpg,table-dhote-4.jpg">
           <span class="pc-inner">
-            <span class="pc-front"><img src="table-dhote.jpg" alt="Table d'Hôte"><span class="pc-caption"><span class="name">Table d'Hôte</span><span class="n">02</span></span></span>
+            <span class="pc-front"><img src="table-dhote.jpg" alt="Table d'Hôte"><span class="pc-tap-hint" aria-hidden="true"><span class="pc-tap-ring"></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11.5V5a1.5 1.5 0 0 1 3 0v5.5"/><path d="M12 10.5V4a1.5 1.5 0 0 1 3 0v6.5"/><path d="M15 10.5V6a1.5 1.5 0 0 1 3 0v8c0 3.5-2 7-6.5 7-3 0-4-1-5.5-3L3.6 14a1.4 1.4 0 0 1 2-2L8 13.5"/></svg></span><span class="pc-caption"><span class="name">Table d'Hôte</span><span class="n">02</span></span></span>
             <span class="pc-back">
               <span class="pc-stamp"><svg viewBox="0 0 40 40"><rect x="2" y="2" width="36" height="36" rx="2" fill="none" stroke="currentColor" stroke-width="1.4" stroke-dasharray="3 2"/><g stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"><ellipse cx="24" cy="20" rx="5" ry="3.6" transform="rotate(20 24 20)"/><line x1="20" y1="18" x2="12" y2="14"/></g></svg></span>
               <span class="n">02</span><h3>Table d'Hôte</h3>
@@ -483,7 +503,7 @@
 
         <button class="postcard" style="--tilt:-4deg" data-gallery="bar-room.jpg,bar-room-2.jpg,bar-room-3.jpg,bar-room-4.jpg,bar-room-5.jpg">
           <span class="pc-inner">
-            <span class="pc-front"><img src="bar-room.jpg" alt="Le Bar"><span class="pc-caption"><span class="name">Le Bar</span><span class="n">03</span></span></span>
+            <span class="pc-front"><img src="bar-room.jpg" alt="Le Bar"><span class="pc-tap-hint" aria-hidden="true"><span class="pc-tap-ring"></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11.5V5a1.5 1.5 0 0 1 3 0v5.5"/><path d="M12 10.5V4a1.5 1.5 0 0 1 3 0v6.5"/><path d="M15 10.5V6a1.5 1.5 0 0 1 3 0v8c0 3.5-2 7-6.5 7-3 0-4-1-5.5-3L3.6 14a1.4 1.4 0 0 1 2-2L8 13.5"/></svg></span><span class="pc-caption"><span class="name">Le Bar</span><span class="n">03</span></span></span>
             <span class="pc-back">
               <span class="pc-stamp"><svg viewBox="0 0 40 40"><rect x="2" y="2" width="36" height="36" rx="2" fill="none" stroke="currentColor" stroke-width="1.4" stroke-dasharray="3 2"/><g stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"><ellipse cx="24" cy="20" rx="5" ry="3.6" transform="rotate(20 24 20)"/><line x1="20" y1="18" x2="12" y2="14"/></g></svg></span>
               <span class="n">03</span><h3>Le Bar</h3>
@@ -494,7 +514,7 @@
 
         <button class="postcard" style="--tilt:3deg" data-gallery="kids-corner.jpg,kids-corner-2.jpg,kids-corner-3.jpg,kids-corner-4.jpg">
           <span class="pc-inner">
-            <span class="pc-front"><img src="kids-corner.jpg" alt="Coin des Petits"><span class="pc-caption"><span class="name">Coin des Petits</span><span class="n">04</span></span></span>
+            <span class="pc-front"><img src="kids-corner.jpg" alt="Coin des Petits"><span class="pc-tap-hint" aria-hidden="true"><span class="pc-tap-ring"></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11.5V5a1.5 1.5 0 0 1 3 0v5.5"/><path d="M12 10.5V4a1.5 1.5 0 0 1 3 0v6.5"/><path d="M15 10.5V6a1.5 1.5 0 0 1 3 0v8c0 3.5-2 7-6.5 7-3 0-4-1-5.5-3L3.6 14a1.4 1.4 0 0 1 2-2L8 13.5"/></svg></span><span class="pc-caption"><span class="name">Coin des Petits</span><span class="n">04</span></span></span>
             <span class="pc-back">
               <span class="pc-stamp"><svg viewBox="0 0 40 40"><rect x="2" y="2" width="36" height="36" rx="2" fill="none" stroke="currentColor" stroke-width="1.4" stroke-dasharray="3 2"/><g stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"><ellipse cx="24" cy="20" rx="5" ry="3.6" transform="rotate(20 24 20)"/><line x1="20" y1="18" x2="12" y2="14"/></g></svg></span>
               <span class="n">04</span><h3>Coin des Petits</h3>
@@ -505,7 +525,7 @@
 
         <button class="postcard" style="--tilt:-2deg" data-gallery="potager.jpg,terrace.jpg,terrasse-3.jpg,terrasse-4.jpg,terrasse-5.jpg">
           <span class="pc-inner">
-            <span class="pc-front"><img src="potager.jpg" alt="Terrasse &amp; Potager"><span class="pc-caption"><span class="name">Terrasse &amp; Potager</span><span class="n">05</span></span></span>
+            <span class="pc-front"><img src="potager.jpg" alt="Terrasse &amp; Potager"><span class="pc-tap-hint" aria-hidden="true"><span class="pc-tap-ring"></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11.5V5a1.5 1.5 0 0 1 3 0v5.5"/><path d="M12 10.5V4a1.5 1.5 0 0 1 3 0v6.5"/><path d="M15 10.5V6a1.5 1.5 0 0 1 3 0v8c0 3.5-2 7-6.5 7-3 0-4-1-5.5-3L3.6 14a1.4 1.4 0 0 1 2-2L8 13.5"/></svg></span><span class="pc-caption"><span class="name">Terrasse &amp; Potager</span><span class="n">05</span></span></span>
             <span class="pc-back">
               <span class="pc-stamp"><svg viewBox="0 0 40 40"><rect x="2" y="2" width="36" height="36" rx="2" fill="none" stroke="currentColor" stroke-width="1.4" stroke-dasharray="3 2"/><g stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"><ellipse cx="24" cy="20" rx="5" ry="3.6" transform="rotate(20 24 20)"/><line x1="20" y1="18" x2="12" y2="14"/></g></svg></span>
               <span class="n">05</span><h3>Terrasse &amp; Potager</h3>
@@ -517,7 +537,7 @@
 
         <button class="postcard" style="--tilt:4deg" data-gallery="billiard.jpg,billiard-2.jpg,billiard-3.jpg,billiard-4.jpg">
           <span class="pc-inner">
-            <span class="pc-front"><img src="billiard.jpg" alt="Salle de Billard"><span class="pc-caption"><span class="name">Salle de Billard</span><span class="n">06</span></span></span>
+            <span class="pc-front"><img src="billiard.jpg" alt="Salle de Billard"><span class="pc-tap-hint" aria-hidden="true"><span class="pc-tap-ring"></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11.5V5a1.5 1.5 0 0 1 3 0v5.5"/><path d="M12 10.5V4a1.5 1.5 0 0 1 3 0v6.5"/><path d="M15 10.5V6a1.5 1.5 0 0 1 3 0v8c0 3.5-2 7-6.5 7-3 0-4-1-5.5-3L3.6 14a1.4 1.4 0 0 1 2-2L8 13.5"/></svg></span><span class="pc-caption"><span class="name">Salle de Billard</span><span class="n">06</span></span></span>
             <span class="pc-back">
               <span class="pc-stamp"><svg viewBox="0 0 40 40"><rect x="2" y="2" width="36" height="36" rx="2" fill="none" stroke="currentColor" stroke-width="1.4" stroke-dasharray="3 2"/><g stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"><ellipse cx="24" cy="20" rx="5" ry="3.6" transform="rotate(20 24 20)"/><line x1="20" y1="18" x2="12" y2="14"/></g></svg></span>
               <span class="n">06</span><h3>Salle de Billard</h3>
@@ -528,7 +548,7 @@
 
         <button class="postcard" style="--tilt:-3deg" data-gallery="traiteur.jpg,traiteur-2.jpg,traiteur-3.jpg,traiteur-4.jpg,traiteur-5.jpg">
           <span class="pc-inner">
-            <span class="pc-front"><img src="traiteur.jpg" alt="Comptoir Traiteur"><span class="pc-caption"><span class="name">Comptoir Traiteur</span><span class="n">07</span></span></span>
+            <span class="pc-front"><img src="traiteur.jpg" alt="Comptoir Traiteur"><span class="pc-tap-hint" aria-hidden="true"><span class="pc-tap-ring"></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11.5V5a1.5 1.5 0 0 1 3 0v5.5"/><path d="M12 10.5V4a1.5 1.5 0 0 1 3 0v6.5"/><path d="M15 10.5V6a1.5 1.5 0 0 1 3 0v8c0 3.5-2 7-6.5 7-3 0-4-1-5.5-3L3.6 14a1.4 1.4 0 0 1 2-2L8 13.5"/></svg></span><span class="pc-caption"><span class="name">Comptoir Traiteur</span><span class="n">07</span></span></span>
             <span class="pc-back">
               <span class="pc-stamp"><svg viewBox="0 0 40 40"><rect x="2" y="2" width="36" height="36" rx="2" fill="none" stroke="currentColor" stroke-width="1.4" stroke-dasharray="3 2"/><g stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"><ellipse cx="24" cy="20" rx="5" ry="3.6" transform="rotate(20 24 20)"/><line x1="20" y1="18" x2="12" y2="14"/></g></svg></span>
               <span class="n">07</span><h3>Comptoir Traiteur</h3>
@@ -540,7 +560,7 @@
 
         <button class="postcard" style="--tilt:2deg" data-gallery="coming-soon.png">
           <span class="pc-inner">
-            <span class="pc-front"><img src="coming-soon.png" alt="Comptoir Cadeaux"><span class="pc-caption"><span class="name">Comptoir Cadeaux</span><span class="n">08</span></span></span>
+            <span class="pc-front"><img src="coming-soon.png" alt="Comptoir Cadeaux"><span class="pc-tap-hint" aria-hidden="true"><span class="pc-tap-ring"></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11.5V5a1.5 1.5 0 0 1 3 0v5.5"/><path d="M12 10.5V4a1.5 1.5 0 0 1 3 0v6.5"/><path d="M15 10.5V6a1.5 1.5 0 0 1 3 0v8c0 3.5-2 7-6.5 7-3 0-4-1-5.5-3L3.6 14a1.4 1.4 0 0 1 2-2L8 13.5"/></svg></span><span class="pc-caption"><span class="name">Comptoir Cadeaux</span><span class="n">08</span></span></span>
             <span class="pc-back">
               <span class="pc-stamp"><svg viewBox="0 0 40 40"><rect x="2" y="2" width="36" height="36" rx="2" fill="none" stroke="currentColor" stroke-width="1.4" stroke-dasharray="3 2"/><g stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"><ellipse cx="24" cy="20" rx="5" ry="3.6" transform="rotate(20 24 20)"/><line x1="20" y1="18" x2="12" y2="14"/></g></svg></span>
               <span class="n">08</span><h3>Comptoir Cadeaux</h3>
@@ -552,7 +572,7 @@
 
         <button class="postcard" style="--tilt:-5deg" data-gallery="coming-soon.png">
           <span class="pc-inner">
-            <span class="pc-front"><img src="coming-soon.png" alt="La Galerie"><span class="pc-caption"><span class="name">La Galerie</span><span class="n">09</span></span></span>
+            <span class="pc-front"><img src="coming-soon.png" alt="La Galerie"><span class="pc-tap-hint" aria-hidden="true"><span class="pc-tap-ring"></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11.5V5a1.5 1.5 0 0 1 3 0v5.5"/><path d="M12 10.5V4a1.5 1.5 0 0 1 3 0v6.5"/><path d="M15 10.5V6a1.5 1.5 0 0 1 3 0v8c0 3.5-2 7-6.5 7-3 0-4-1-5.5-3L3.6 14a1.4 1.4 0 0 1 2-2L8 13.5"/></svg></span><span class="pc-caption"><span class="name">La Galerie</span><span class="n">09</span></span></span>
             <span class="pc-back">
               <span class="pc-stamp"><svg viewBox="0 0 40 40"><rect x="2" y="2" width="36" height="36" rx="2" fill="none" stroke="currentColor" stroke-width="1.4" stroke-dasharray="3 2"/><g stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"><ellipse cx="24" cy="20" rx="5" ry="3.6" transform="rotate(20 24 20)"/><line x1="20" y1="18" x2="12" y2="14"/></g></svg></span>
               <span class="n">09</span><h3>La Galerie</h3>
@@ -765,16 +785,20 @@
     const vw = innerWidth, vh = innerHeight;
     const photoW = Math.min(150, vw * 0.38);
     const halfW = photoW / 2 + 14, halfH = (photoW * 4 / 3) / 2 + 14;
+    const headerH = 88;
     const minX = halfW, maxX = Math.max(halfW, vw - halfW);
-    const minY = 92 + halfH, maxY = Math.max(minY, vh - halfH);
-    const spread = Math.min(vw, vh) * 0.3;
+    const minY = headerH + halfH, maxY = Math.max(minY, vh - halfH);
+    // targets fan out around the screen's own centre (not the card), so the
+    // scatter always uses the full viewport no matter where the card sits
+    const cx = vw / 2, cy = headerH + (vh - headerH) / 2;
+    const spread = Math.min(vw, vh - headerH) * 0.66;
     const baseAngle = Math.random() * Math.PI * 2;
 
     const els = files.map((file, i) => {
       const angle = baseAngle + (i / files.length) * Math.PI * 2 + (Math.random() * 0.5 - 0.25);
-      const dist = spread * (0.6 + Math.random() * 0.55);
-      const tx = Math.max(minX, Math.min(maxX, ox + Math.cos(angle) * dist));
-      const ty = Math.max(minY, Math.min(maxY, oy + Math.sin(angle) * dist));
+      const dist = spread * (0.5 + Math.random() * 0.65);
+      const tx = Math.max(minX, Math.min(maxX, cx + Math.cos(angle) * dist));
+      const ty = Math.max(minY, Math.min(maxY, cy + Math.sin(angle) * dist));
 
       const img = document.createElement('img');
       img.src = file;
