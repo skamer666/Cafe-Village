@@ -1,8 +1,9 @@
 <!doctype html><html lang="fr"><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style><title>Café Village</title></head><body>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Prata&family=Karla:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,400;1,500&family=Karla:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap');
 
   :root{
+    --serif:'Playfair Display','Prata',serif;
     --cream:#fdfbf2;
     --cream-dim: color-mix(in oklch, #fdfbf2 92%, #173d30 8%);
     --forest:#173d30;
@@ -59,7 +60,7 @@
 
   img{max-width:100%; display:block;}
   a{color:inherit;}
-  h1,h2,h3{font-family:'Prata',serif; font-weight:400; margin:0; letter-spacing:0.01em;}
+  h1,h2,h3{font-family:var(--serif); font-weight:700; margin:0; letter-spacing:0.01em;}
   p{margin:0;}
   .eyebrow{
     font-size:var(--fs-xs);
@@ -107,7 +108,7 @@
   header .brand img{height:44px; width:auto; transition:height .4s var(--ease-out);}
   header.scrolled .brand img{height:36px;}
   header.scrolled .brand img.logo-over{content:url('logo-dark.png');}
-  header .brand span{font-family:'Prata',serif; font-size:1.15rem; color:var(--forest);}
+  header .brand span{font-family:var(--serif); font-weight:700; font-size:1.15rem; color:var(--forest);}
 
   nav.links{display:flex; align-items:center; gap:clamp(16px,2.4vw,34px);}
   nav.links a{
@@ -173,7 +174,7 @@
   .manifesto{padding-block:var(--section-pad) var(--space-2xl); background:var(--cream);}
   .manifesto .grid{display:grid; grid-template-columns: 1.15fr 0.85fr; gap:clamp(32px,5vw,80px); align-items:center;}
   .manifesto blockquote{
-    margin:var(--space-md) 0 0; font-family:'Prata',serif; font-size:var(--fs-lg); line-height:1.28;
+    margin:var(--space-md) 0 0; font-family:var(--serif); font-size:var(--fs-lg); line-height:1.28;
     max-width:20ch;
   }
   .manifesto blockquote em{color:var(--terracotta); font-style:normal;}
@@ -226,7 +227,7 @@
   .pc-caption{
     padding:9px 2px 11px; display:flex; justify-content:space-between; align-items:baseline; gap:8px;
   }
-  .pc-caption .name{font-family:'Prata',serif; font-size:0.92rem; color:var(--forest); line-height:1.15;}
+  .pc-caption .name{font-family:var(--serif); font-size:0.92rem; color:var(--forest); line-height:1.15;}
   .pc-caption .n{font-size:0.62rem; letter-spacing:0.14em; color:var(--terracotta); font-weight:700; white-space:nowrap;}
 
   .pc-tap-hint{
@@ -255,7 +256,7 @@
   .pc-stamp{position:absolute; top:12px; right:12px; width:38px; height:38px; color:var(--terracotta); opacity:0.8; transform:rotate(-9deg);}
   .pc-stamp svg{width:100%; height:100%;}
   .pc-back .n{font-size:0.64rem; letter-spacing:0.18em; color:var(--gold); font-weight:700; text-transform:uppercase;}
-  .pc-back h3{font-family:'Prata',serif; font-size:clamp(0.98rem,0.85rem + 0.5vw,1.35rem); line-height:1.15; margin-top:6px; padding-right:34px;}
+  .pc-back h3{font-family:var(--serif); font-size:clamp(0.98rem,0.85rem + 0.5vw,1.35rem); line-height:1.15; margin-top:6px; padding-right:34px;}
   .pc-back p{margin-top:8px; font-size:clamp(0.74rem,0.7rem + 0.2vw,0.85rem); line-height:1.45; color:var(--forest-soft);}
   .pc-back .btn{margin-top:auto; align-self:flex-start; padding:9px 18px; font-size:0.72rem;}
 
@@ -332,7 +333,7 @@
     border:1px dashed color-mix(in oklch, var(--cream) 35%, transparent);
     border-radius:4px; padding:var(--space-xl);
   }
-  .reserve-cta h3{font-family:'Prata',serif; font-size:var(--fs-lg); color:var(--cream); margin-top:8px;}
+  .reserve-cta h3{font-family:var(--serif); font-size:var(--fs-lg); color:var(--cream); margin-top:8px;}
   .reserve-cta p{margin-top:12px; max-width:38ch;}
   .reserve-cta .btn{margin-top:var(--space-lg);}
 
@@ -670,7 +671,6 @@
     </div>
     <div class="foot-bottom">
       <span>© Café Village · Waterloo</span>
-      <span>Charte graphique Salt&amp;Paper · Photos temporaires libres de droits</span>
     </div>
   </div>
 </footer>
