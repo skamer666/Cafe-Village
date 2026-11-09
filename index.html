@@ -90,6 +90,14 @@
     padding:20px clamp(20px,5vw,56px);
     transition:padding .4s var(--ease-out), background-color .4s var(--ease-out), box-shadow .4s var(--ease-out);
   }
+  header::before{
+    content:""; position:absolute; inset:0 0 -28px; z-index:-1; pointer-events:none;
+    background:linear-gradient(180deg, rgba(9,18,14,.62), rgba(9,18,14,0)); transition:opacity .4s;
+  }
+  header.scrolled::before{opacity:0;}
+  header:not(.scrolled) .brand span, header:not(.scrolled) nav.links a:not(.btn){color:var(--cream);}
+  header:not(.scrolled) nav.links a::after{background:var(--cream);}
+  header:not(.scrolled) nav.links .btn{color:var(--cream); border-color:var(--cream); background:rgba(9,18,14,.25);}
   header.scrolled{
     padding-block:10px;
     background:var(--cream);
@@ -98,6 +106,7 @@
   header .brand{display:flex; align-items:center; gap:10px; text-decoration:none;}
   header .brand img{height:44px; width:auto; transition:height .4s var(--ease-out);}
   header.scrolled .brand img{height:36px;}
+  header.scrolled .brand img.logo-over{content:url('logo-dark.png');}
   header .brand span{font-family:'Prata',serif; font-size:1.15rem; color:var(--forest);}
 
   nav.links{display:flex; align-items:center; gap:clamp(16px,2.4vw,34px);}
@@ -246,8 +255,8 @@
   .pc-stamp{position:absolute; top:12px; right:12px; width:38px; height:38px; color:var(--terracotta); opacity:0.8; transform:rotate(-9deg);}
   .pc-stamp svg{width:100%; height:100%;}
   .pc-back .n{font-size:0.64rem; letter-spacing:0.18em; color:var(--gold); font-weight:700; text-transform:uppercase;}
-  .pc-back h3{font-family:'Prata',serif; font-size:clamp(1.05rem,0.9rem + 0.5vw,1.35rem); margin-top:6px; padding-right:34px;}
-  .pc-back p{margin-top:8px; font-size:0.85rem; line-height:1.5; color:var(--forest-soft);}
+  .pc-back h3{font-family:'Prata',serif; font-size:clamp(0.98rem,0.85rem + 0.5vw,1.35rem); line-height:1.15; margin-top:6px; padding-right:34px;}
+  .pc-back p{margin-top:8px; font-size:clamp(0.74rem,0.7rem + 0.2vw,0.85rem); line-height:1.45; color:var(--forest-soft);}
   .pc-back .btn{margin-top:auto; align-self:flex-start; padding:9px 18px; font-size:0.72rem;}
 
   /* ---------- splash burst (photos fly out of the clicked card) ---------- */
@@ -341,6 +350,19 @@
     display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; font-size:0.82rem; color:var(--forest-soft);
   }
 
+  @media (max-width:460px){
+    .pc-back{padding:11px 12px;}
+    .pc-back h3{font-size:0.92rem; padding-right:28px; margin-top:3px;}
+    .pc-back p{font-size:0.7rem; line-height:1.38; margin-top:5px;}
+    .pc-back .n{font-size:0.58rem;}
+    .pc-stamp{width:28px; height:28px; top:9px; right:9px;}
+  }
+  @media (max-width:350px){
+    .pc-back{padding:9px 10px;}
+    .pc-back h3{font-size:0.82rem;}
+    .pc-back p{font-size:0.62rem; line-height:1.3;}
+    .pc-stamp{display:none;}
+  }
   @media (max-width:920px){
     nav.links a:not(.btn){display:none;}
     .manifesto .grid, .terrasse .grid, .reserve .grid{grid-template-columns:1fr;}
@@ -364,7 +386,7 @@
 
 <header id="site-header">
   <a href="#top" class="brand">
-    <img src="logo-dark.png" alt="Café Village" class="badge">
+    <img src="logo-light.png" alt="Café Village" class="badge logo-over" id="brand-logo">
     <span>Café Village</span>
   </a>
 
