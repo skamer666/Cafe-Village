@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://cafe-village.vercel.app/sitemap.xml
+Sitemap: https://cafevillage.be/sitemap.xml
