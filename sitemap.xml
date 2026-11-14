@@ -1,14 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://www.cafevillage.be/</loc>
     <lastmod>2026-11-14</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>1.0</priority>
+    <image:image><image:loc>https://www.cafevillage.be/hero-evening.jpg</image:loc></image:image>
+    <image:image><image:loc>https://www.cafevillage.be/manifesto.jpg</image:loc></image:image>
+    <image:image><image:loc>https://www.cafevillage.be/orient-express-2.jpg</image:loc></image:image>
+    <image:image><image:loc>https://www.cafevillage.be/orient-express-3.jpg</image:loc></image:image>
+    <image:image><image:loc>https://www.cafevillage.be/orient-express-4.jpg</image:loc></image:image>
+    <image:image><image:loc>https://www.cafevillage.be/orient-express-5.jpg</image:loc></image:image>
+    <image:image><image:loc>https://www.cafevillage.be/orient-express.jpg</image:loc></image:image>
+    <image:image><image:loc>https://www.cafevillage.be/table-dhote-2.jpg</image:loc></image:image>
+    <image:image><image:loc>https://www.cafevillage.be/table-dhote-3.jpg</image:loc></image:image>
+    <image:image><image:loc>https://www.cafevillage.be/table-dhote-4.jpg</image:loc></image:image>
+    <image:image><image:loc>https://www.cafevillage.be/table-dhote.jpg</image:loc></image:image>
+    <image:image><image:loc>https://www.cafevillage.be/bar-room-2.jpg</image:loc></image:image>
+    <image:image><image:loc>https://www.cafevillage.be/bar-room-3.jpg</image:loc></image:image>
+    <image:image><image:loc>https://www.cafevillage.be/bar-room-4.jpg</image:loc></image:image>
+    <image:image><image:loc>https://www.cafevillage.be/bar-room-5.jpg</image:loc></image:image>
+    <image:image><image:loc>https://www.cafevillage.be/bar-room.jpg</image:loc></image:image>
+    <image:image><image:loc>https://www.cafevillage.be/kids-corner-2.jpg</image:loc></image:image>
+    <image:image><image:loc>https://www.cafevillage.be/kids-corner-3.jpg</image:loc></image:image>
+    <image:image><image:loc>https://www.cafevillage.be/kids-corner-4.jpg</image:loc></image:image>
+    <image:image><image:loc>https://www.cafevillage.be/kids-corner.jpg</image:loc></image:image>
+    <image:image><image:loc>https://www.cafevillage.be/potager.jpg</image:loc></image:image>
+    <image:image><image:loc>https://www.cafevillage.be/terrace.jpg</image:loc></image:image>
+    <image:image><image:loc>https://www.cafevillage.be/terrasse-3.jpg</image:loc></image:image>
+    <image:image><image:loc>https://www.cafevillage.be/terrasse-4.jpg</image:loc></image:image>
+    <image:image><image:loc>https://www.cafevillage.be/terrasse-5.jpg</image:loc></image:image>
+    <image:image><image:loc>https://www.cafevillage.be/billiard-2.jpg</image:loc></image:image>
+    <image:image><image:loc>https://www.cafevillage.be/billiard-3.jpg</image:loc></image:image>
+    <image:image><image:loc>https://www.cafevillage.be/billiard-4.jpg</image:loc></image:image>
+    <image:image><image:loc>https://www.cafevillage.be/billiard.jpg</image:loc></image:image>
+    <image:image><image:loc>https://www.cafevillage.be/traiteur-2.jpg</image:loc></image:image>
+    <image:image><image:loc>https://www.cafevillage.be/traiteur-3.jpg</image:loc></image:image>
+    <image:image><image:loc>https://www.cafevillage.be/traiteur-4.jpg</image:loc></image:image>
+    <image:image><image:loc>https://www.cafevillage.be/traiteur-5.jpg</image:loc></image:image>
+    <image:image><image:loc>https://www.cafevillage.be/traiteur.jpg</image:loc></image:image>
   </url>
   <url>
     <loc>https://www.cafevillage.be/legal.html</loc>
     <lastmod>2026-11-13</lastmod>
-    <priority>0.2</priority>
   </url>
 </urlset>
